@@ -11,10 +11,10 @@
 {% endblock %}
 
 {% block content %}
-  <h1>{{ lyric.title }}</h1>
-  <h4>{{ lyric.artist }}</h4>
+  <h2>{{ lyric.title }}</h2>
+  <h5>{{ lyric.artist }}</h5>
 
-  <div id="lyric">
+  <div id="lyric" class="mt-5">
   {% for line in lyric.lines %}
     {% if line|cut:' ' == '' %}
       <br id="line{{ forloop.counter0 }}">
