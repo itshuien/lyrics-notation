@@ -1,0 +1,12 @@
+<h1>{{ lyric.title }}</h1>
+<h3>{{ lyric.artist }}</h3>
+
+<div id="lyric">
+{% for line in lyric.lines %}
+  {% if line|cut:' ' == '' %}
+    <br id="{{ forloop.counter0 }}">
+  {% else %}
+    <p id="{{ forloop.counter0 }}">{{ line }}</p>
+  {% endif %}
+{% endfor %}
+</div>
