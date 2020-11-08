@@ -1,12 +1,26 @@
-<h1>{{ lyric.title }}</h1>
-<h3>{{ lyric.artist }}</h3>
+{% extends "index.html" %}
 
-<div id="lyric">
-{% for line in lyric.lines %}
-  {% if line|cut:' ' == '' %}
-    <br id="{{ forloop.counter0 }}">
-  {% else %}
-    <p id="{{ forloop.counter0 }}">{{ line }}</p>
-  {% endif %}
-{% endfor %}
-</div>
+{% load static %}
+
+{% block script %}
+  <link rel="stylesheet" type="text/css" href="{% static 'lyrics/styles/main.css' %}">
+  <script>
+    const lyricNotations = JSON.parse("{{ lyric_notations|escapejs }}");
+  </script>
+  <script src="{% static 'lyrics/javascript/lyricNotations.js' %}" defer></script>
+{% endblock %}
+
+{% block content %}
+  <h1>{{ lyric.title }}</h1>
+  <h4>{{ lyric.artist }}</h4>
+
+  <div id="lyric">
+  {% for line in lyric.lines %}
+    {% if line|cut:' ' == '' %}
+      <br id="line{{ forloop.counter0 }}">
+    {% else %}
+      <p id="line{{ forloop.counter0 }}">{{ line }}</p>
+    {% endif %}
+  {% endfor %}
+  </div>
+{% endblock %}
