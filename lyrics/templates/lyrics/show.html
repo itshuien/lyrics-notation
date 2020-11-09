@@ -23,4 +23,24 @@
     {% endif %}
   {% endfor %}
   </div>
+
+  <hr>
+
+  <div class="my-4">
+    <svg id="lyricContainer" width="100%" height="300px">
+      {% for line in tokenized_lyric_lines %}
+        <svg data-line-id="{{ forloop.counter0 }}" width="100%" height="30px">
+          {% for word in line %}
+            {% if word|cut:' ' == '' %}
+              <text data-word-id="word-{{ forloop.counter0 }}" dominant-baseline="hanging">&nbsp;</text>
+            {% else %}
+              <text data-word-id="word-{{ forloop.counter0 }}" dominant-baseline="hanging">{{ word }}</text>
+            {% endif %}
+          {% empty %}
+            <text dominant-baseline="hanging"></text>
+          {% endfor %}
+        </svg>
+      {% endfor %}
+    </svg>
+  </div>
 {% endblock %}
