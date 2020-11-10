@@ -27,7 +27,7 @@ const loadLyricNotations = lyricNotations => {
       const lineStartOffset = lineNumber == startLine ? startOffset : 0;
       const lineEndOffset = lineNumber == endLine ? endOffset : lineElement.textContent.length;
   
-      addNotationWrapper(lineElement.firstChild, lineStartOffset, lineEndOffset, notation.id);
+      if (lineElement.textContent) addNotationWrapper(lineElement.firstChild, lineStartOffset, lineEndOffset, notation.id);
     }
   }
 }
@@ -99,14 +99,17 @@ const loadLyricNotations2 = lyricNotations => {
       for (let wordElement of lineElement.children) {
         if (startWord && endWord) break;
 
-        if (lineStartOffset >= wordElement.dataset.startOffset && lineStartOffset < wordElement.dataset.endOffset) {
+        if (!startWord && lineStartOffset >= wordElement.dataset.startOffset && lineStartOffset < wordElement.dataset.endOffset) {
           startWord = wordElement;
-        } else if (lineEndOffset > wordElement.dataset.startOffset && lineEndOffset <= wordElement.dataset.endOffset) {
+        }
+        if (!endWord && lineEndOffset > wordElement.dataset.startOffset && lineEndOffset <= wordElement.dataset.endOffset) {
           endWord = wordElement;
         }
       }
+      
+      if (!startWord || !endWord) continue;
 
-      const startPosition = startWord.getAttribute('x');
+      const startPosition = startWord.getStartPositionOfChar(lineStartOffset - parseInt(startWord.dataset.startOffset)).x;
       const endPosition = endWord.getEndPositionOfChar(lineEndOffset - parseInt(endWord.dataset.startOffset) - 1).x;
       const rect = drawLyricNotation((endPosition - startPosition), startPosition)
       lineElement.insertAdjacentHTML('afterbegin', rect);
