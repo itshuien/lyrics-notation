@@ -58,6 +58,7 @@ const loadTokenizedLyrics = () => {
 document.addEventListener('DOMContentLoaded', () => {
   loadLyricNotations(lyricNotations); // parameter is declared in template
   loadTokenizedLyrics();
+  overrideCopyBehaviour();
 
   document.getElementById('lyric').style.display = 'none';
 
@@ -111,4 +112,12 @@ const loadLyricNotations2 = lyricNotations => {
       lineElement.insertAdjacentHTML('afterbegin', rect);
     }
   }
+}
+
+const overrideCopyBehaviour = () => {
+  document.addEventListener('copy', function(e){
+    var text = window.getSelection().toString().replace(/[\n\r]+/g, '');
+    e.clipboardData.setData('text/plain', text);
+    e.preventDefault();
+  });
 }
