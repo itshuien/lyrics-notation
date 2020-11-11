@@ -6,6 +6,7 @@
   <link rel="stylesheet" type="text/css" href="{% static 'lyrics/styles/main.css' %}">
   <script>
     const lyricNotations = JSON.parse("{{ lyric_notations|escapejs }}");
+    const lyricLines = JSON.parse("{{ lyric_lines|escapejs }}");
   </script>
   <script src="{% static 'lyrics/javascript/lyricNotations.js' %}" defer></script>
 {% endblock %}
@@ -27,21 +28,59 @@
   {% endfor %}
   </div>
 
-  <div class="my-4">
-    <svg id="lyricContainer" width="100%" height="300px">
-      {% for line in tokenized_lyric_lines %}
-        <svg id="line{{ forloop.counter0 }}" data-line-id="{{ forloop.counter0 }}" width="100%" height="25">
-          {% for word in line %}
-            {% if word|cut:' ' == '' %}
-              <text data-word-id="{{ forloop.counter0 }}" dominant-baseline="middle" y="50%">&nbsp;</text>
-            {% else %}
-              <text data-word-id="{{ forloop.counter0 }}" dominant-baseline="middle" y="50%">{{ word }}</text>
-            {% endif %}
-          {% empty %}
-            <text dominant-baseline="hanging"></text>
-          {% endfor %}
-        </svg>
-      {% endfor %}
-    </svg>
+  <div class="row my-4">
+    <div class="col">
+      <svg id="lyricContainer" width="100%" height="300px">
+        {% for line in tokenized_lyric_lines %}
+          <svg id="line{{ forloop.counter0 }}" data-line-id="{{ forloop.counter0 }}" width="100%" height="25">
+            {% for word in line %}
+              {% if word|cut:' ' == '' %}
+                <text data-word-id="{{ forloop.counter0 }}" dominant-baseline="middle" y="50%">&nbsp;</text>
+              {% else %}
+                <text data-word-id="{{ forloop.counter0 }}" dominant-baseline="middle" y="50%">{{ word }}</text>
+              {% endif %}
+            {% empty %}
+              <text dominant-baseline="hanging"></text>
+            {% endfor %}
+          </svg>
+        {% endfor %}
+      </svg>
+    </div>
+
+    <div class="col">
+      <form action="{% url 'lyrics:add_lyric_notation' lyric.id %}" method="post">
+        {% csrf_token %}
+
+        <div class="form-row">
+          <div class="form-group col">
+            <label for="startLine">Start Line</label>
+            <input type="number" class="form-control" id="startLine" name="start_line" readonly>
+          </div>
+          <div class="form-group col">
+            <label for="startOffset">Start Offset</label>
+            <input type="number" class="form-control" id="startOffset" name="start_offset" readonly>
+          </div>
+          <div class="form-group col">
+            <label for="endLine">End Line</label>
+            <input type="number" class="form-control" id="endLine" name="end_line" readonly>
+          </div>
+          <div class="form-group col">
+            <label for="endOffset">End Offset</label>
+            <input type="number" class="form-control" id="endOffset" name="end_offset" readonly>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="selected_text">Selected Text</label>
+          <textarea class="form-control" id="selectedText" name="selected_text" rows="3" readonly></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="content">Content</label>
+          <textarea class="form-control" id="content" name="content" rows="3"></textarea>
+        </div>
+        <input type="submit" value="Add Notation" class="btn btn-success">
+      </form>
+    </div>
   </div>
 {% endblock %}

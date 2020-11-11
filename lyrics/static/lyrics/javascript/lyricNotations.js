@@ -145,38 +145,48 @@ const magneticSelectionOnMouseUp = () => {
     selection.removeAllRanges();
     selection.addRange(range);
 
-    console.log(`Overlapping: ${isOverlappingWithExistingNotations()}`)
+    const isInvalid = isOverlappingWithExistingNotations();
+    console.log(`Overlapping: ${isInvalid}`)
+
+    isInvalid ? window.getSelection().removeAllRanges() : getSelectedText();
   })
 }
 
-const getSelectionNodes = () => {
+const getSelectionDetails = () => {
   let { baseNode, extentNode } = window.getSelection();
 
   baseNode = baseNode.parentNode.dataset.lineId ? baseNode : baseNode.parentNode;
   extentNode = extentNode.parentNode.dataset.lineId ? extentNode : extentNode.parentNode;
 
-  return { baseNode, extentNode }
-}
+  let startOffsetByLine = parseInt(baseNode.dataset?.charOffset);
+  let endOffsetByLine = extentNode.textContent?.length + parseInt(extentNode.dataset?.charOffset);
 
-const getSelectionDetails = () => {
-  let { baseNode, extentNode } = getSelectionNodes();
+  let startOffsetByLyric = parseInt(baseNode.parentNode?.dataset?.charOffset) + startOffsetByLine;
+  let endOffsetByLyric = parseInt(extentNode.parentNode?.dataset?.charOffset) + endOffsetByLine;
 
-  let startCharOffset = parseInt(baseNode.parentNode?.dataset?.charOffset) + parseInt(baseNode.dataset?.charOffset);
-  let endCharOffset = parseInt(extentNode.parentNode?.dataset?.charOffset) + parseInt(extentNode.textContent?.length - extentNode.dataset?.charOffset);
-
-  if (startCharOffset > endCharOffset) {
-    [startCharOffset, endCharOffset] = [endCharOffset, startCharOffset];
+  if (startOffsetByLyric > endOffsetByLyric) {
+    [startOffsetByLyric, endOffsetByLyric] = [endOffsetByLyric, startOffsetByLyric];
     [baseNode, extentNode] = [extentNode, baseNode];
+    [startOffsetByLine, endOffsetByLine] = [endOffsetByLine, startOffsetByLine];
   }
 
-  return { startNode: baseNode, endNode: extentNode, startCharOffset, endCharOffset };
+  return {
+    startLine: parseInt(baseNode.parentNode.dataset.lineId),
+    endLine: parseInt(extentNode.parentNode.dataset.lineId),
+    startOffsetByLine,
+    endOffsetByLine,
+    startNode: baseNode,
+    endNode: extentNode,
+    startOffsetByLyric,
+    endOffsetByLyric
+  };
 }
 
 const isOverlappingWithExistingNotations = () => {
   const selection = getSelectionDetails();
 
-  const start1 = selection.startCharOffset;
-  const end1 = selection.endCharOffset;
+  const start1 = selection.startOffsetByLyric;
+  const end1 = selection.endOffsetByLyric;
 
   for (let notation of lyricNotations) {
     const start2 = parseInt(document.querySelector(`[data-line-id="${notation.start_line}"]`).dataset.charOffset) + notation.start_offset;
@@ -189,4 +199,26 @@ const isOverlappingWithExistingNotations = () => {
   };
 
   return false;
+}
+
+const getSelectedText = () => {
+  const { startLine, endLine, startOffsetByLine, endOffsetByLine } = getSelectionDetails();
+  const selectedLines = lyricLines.slice(startLine, endLine+1);
+
+  if (startLine == endLine) {
+    selectedLines[0] = lyricLines[startLine].slice(startOffsetByLine, endOffsetByLine);
+  } else {
+    selectedLines[0] = lyricLines[startLine].slice(startOffsetByLine);
+    selectedLines[selectedLines.length-1] = lyricLines[endLine].slice(0, endOffsetByLine);
+  }
+
+  const selectedTextInput = document.getElementById('selectedText');
+  selectedTextInput.value = selectedLines.join(`\n`);
+
+  document.getElementById('startLine').value = startLine
+  document.getElementById('startOffset').value = startOffsetByLine
+  document.getElementById('endLine').value = endLine
+  document.getElementById('endOffset').value = endOffsetByLine
+
+  return selectedLines.join(`\n`);
 }
