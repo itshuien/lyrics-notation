@@ -47,7 +47,7 @@ const loadTokenizedLyrics = () => {
       word.setAttribute('x', x);
       word.setAttribute('data-start-offset', charOffset)
       word.setAttribute('data-end-offset', charOffset + word.textContent.length)
-      x += word.getBBox().width;
+      x += word.getBBox().width + 2;
       charOffset += word.textContent.length;
     }
   }
@@ -59,6 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
   loadLyricNotations(lyricNotations); // parameter is declared in template
   loadTokenizedLyrics();
   overrideCopyBehaviour();
+  magneticSelectionOnMouseUp();
 
   document.getElementById('lyric').style.display = 'none';
 
@@ -123,4 +124,20 @@ const overrideCopyBehaviour = () => {
     e.clipboardData.setData('text/plain', text);
     e.preventDefault();
   });
+}
+
+const magneticSelectionOnMouseUp = () => {
+  const lyricContainer = document.getElementById('lyricContainer');
+  
+  lyricContainer.addEventListener('mouseup', () => {
+    const selection = window.getSelection();
+    const { baseNode, extentNode } = selection;
+
+    const range = new Range();
+    range.setStart(baseNode.parentNode.firstChild, 0);
+    range.setEnd(extentNode.parentNode.firstChild, extentNode.textContent.length);
+
+    selection.removeAllRanges();
+    selection.addRange(range);
+  })
 }
