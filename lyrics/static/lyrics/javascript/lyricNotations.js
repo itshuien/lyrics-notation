@@ -1,36 +1,10 @@
-const getNotationWrapper = (notationId) => {
-  const wrapperElement = document.createElement('span');
-  wrapperElement.dataset.notationId = notationId;
-  wrapperElement.classList.add('notation-wrapper');
-  return wrapperElement;
-}
+document.addEventListener('DOMContentLoaded', () => {
+  loadTokenizedLyrics();
+  overrideCopyBehaviour();
+  magneticSelectionOnMouseUp();
 
-const addNotationWrapper = (node, startOffset, endOffset, notationId) => {
-  const range = document.createRange();
-  range.setStart(node, startOffset);
-  range.setEnd(node, endOffset);
-  range.surroundContents(getNotationWrapper(notationId));
-}
-
-const loadLyricNotations = lyricNotations => {
-  for (let notation of lyricNotations) {
-    const {
-      start_line: startLine,
-      start_offset: startOffset,
-      end_line: endLine,
-      end_offset: endOffset
-    } = notation;
-  
-    for (let lineNumber = startLine; lineNumber <= endLine; lineNumber++) {
-      const lineElement = document.getElementById(`line${lineNumber}`);
-  
-      const lineStartOffset = lineNumber == startLine ? startOffset : 0;
-      const lineEndOffset = lineNumber == endLine ? endOffset : lineElement.textContent.length;
-  
-      if (lineElement.textContent) addNotationWrapper(lineElement.firstChild, lineStartOffset, lineEndOffset, notation.id);
-    }
-  }
-}
+  loadLyricNotations(lyricNotations);
+})
 
 const loadTokenizedLyrics = () => {
   const lyricContainer = document.getElementById('lyricContainer');
@@ -57,37 +31,12 @@ const loadTokenizedLyrics = () => {
   lyricContainer.style.display = '';
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  loadLyricNotations(lyricNotations); // parameter is declared in template
-  loadTokenizedLyrics();
-  overrideCopyBehaviour();
-  magneticSelectionOnMouseUp();
-
-  document.getElementById('lyric').style.display = 'none';
-
-  const lyricModeSwitch = document.getElementById('lyricModeSwitch');
-  lyricModeSwitch.addEventListener('click', () => {
-    const tokenizedLyricContainer = document.getElementById('lyricContainer');
-    const defaultLyricContainer = document.getElementById('lyric');
-
-    if (tokenizedLyricContainer.style.display == 'none') {
-      tokenizedLyricContainer.style.display = '';
-      defaultLyricContainer.style.display = 'none';
-    } else {
-      tokenizedLyricContainer.style.display = 'none';
-      defaultLyricContainer.style.display = '';
-    }
-  })
-
-  loadLyricNotations2(lyricNotations);
-})
-
 const drawLyricNotation = (line, startWord, endWord, width, x) => {
   const rectHtml = `<rect data-line-id="${line}" data-first-word="${startWord}" data-last-word="${endWord}"  width="${width}" height="100%" x="${x}" class="rectNotation"></rect>`;
   return rectHtml;
 }
 
-const loadLyricNotations2 = lyricNotations => {
+const loadLyricNotations = lyricNotations => {
   for (let notation of lyricNotations) {
     const { start_line: startLine, start_offset: startOffset, end_line: endLine, end_offset: endOffset } = notation;
   
