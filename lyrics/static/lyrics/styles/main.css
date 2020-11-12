@@ -15,6 +15,11 @@
 
 .rectNotation-hover {
   fill: #ffed67;
+  cursor: pointer;
+}
+
+.rectNotation:focus {
+  outline: none;
 }
 
 text {

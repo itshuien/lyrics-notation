@@ -30,20 +30,27 @@ const loadTokenizedLyrics = () => {
   lyricContainer.style.display = '';
 }
 
-const drawLyricNotation = (notationId, line, startWord, endWord, width, x) => {
-  const rectHtml = `<svg xmlns="http://www.w3.org/2000/svg"><rect data-notation-type="lyric-notation" data-notation-id="${notationId}" data-line-id="${line}" data-first-word="${startWord}" data-last-word="${endWord}" width="${width}" height="100%" x="${x}" class="rectNotation"></rect></svg>`;
+const drawLyricNotation = (notation, line, startWord, endWord, width, x) => {
+  const rectHtml = `<svg xmlns="http://www.w3.org/2000/svg"><rect tabindex="0" data-notation-type="lyric-notation" data-notation-id="${notation.id}" data-line-id="${line}" data-first-word="${startWord}" data-last-word="${endWord}" width="${width}" height="100%" x="${x}" class="rectNotation"></rect></svg>`;
   const domParser = new DOMParser();
   const doc = domParser.parseFromString(rectHtml, 'image/svg+xml');
   const rectElement = doc.querySelector('rect');
   rectElement.addEventListener('mouseover', () => {
-    const peers = document.querySelectorAll(`[data-notation-id="${notationId}"]`);
+    const peers = document.querySelectorAll(`[data-notation-id="${notation.id}"]`);
     for (let peer of peers) peer.classList.add('rectNotation-hover');
   });
 
   rectElement.addEventListener('mouseout', () => {
-    const peers = document.querySelectorAll(`[data-notation-id="${notationId}"]`);
+    const peers = document.querySelectorAll(`[data-notation-id="${notation.id}"]`);
     for (let peer of peers) peer.classList.remove('rectNotation-hover');
   });
+
+  $(rectElement).popover({
+    content: notation.content,
+    trigger: 'focus',
+    placement: 'top'
+  })
+
   return rectElement;
 }
 
@@ -77,7 +84,7 @@ const loadLyricNotations = lyricNotations => {
 
       const startPosition = startWord.getStartPositionOfChar(lineStartOffset - parseInt(startWord.dataset.charOffset)).x;
       const endPosition = endWord.getEndPositionOfChar(lineEndOffset - parseInt(endWord.dataset.charOffset) - 1).x;
-      const rect = drawLyricNotation(notation.id, lineNumber, startWord.dataset.wordId, endWord.dataset.wordId, (endPosition - startPosition), startPosition)
+      const rect = drawLyricNotation(notation, lineNumber, startWord.dataset.wordId, endWord.dataset.wordId, (endPosition - startPosition), startPosition)
       lineElement.insertAdjacentElement('afterbegin', rect);
     }
   }
