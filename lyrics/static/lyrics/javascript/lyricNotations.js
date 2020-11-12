@@ -1,9 +1,8 @@
-document.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('load', function() {
   loadTokenizedLyrics();
-  overrideCopyBehaviour();
-  magneticSelectionOnMouseUp();
-
   loadLyricNotations(lyricNotations);
+  magneticSelectionOnMouseUp();
+  overrideCopyBehaviour();
 })
 
 const loadTokenizedLyrics = () => {
@@ -22,7 +21,7 @@ const loadTokenizedLyrics = () => {
     for (let word of Array.from(lyricLine.children).filter(child => child.dataset.wordId)) {
       word.setAttribute('x', x);
       word.setAttribute('data-char-offset', wordCharOffset)
-      x += word.getBBox().width + 2;
+      x += word.getBBox().width;
       wordCharOffset += word.textContent.length;
     }
     lineCharOffset += wordCharOffset;
@@ -31,9 +30,21 @@ const loadTokenizedLyrics = () => {
   lyricContainer.style.display = '';
 }
 
-const drawLyricNotation = (line, startWord, endWord, width, x) => {
-  const rectHtml = `<rect data-line-id="${line}" data-first-word="${startWord}" data-last-word="${endWord}"  width="${width}" height="100%" x="${x}" class="rectNotation"></rect>`;
-  return rectHtml;
+const drawLyricNotation = (notationId, line, startWord, endWord, width, x) => {
+  const rectHtml = `<svg xmlns="http://www.w3.org/2000/svg"><rect data-notation-type="lyric-notation" data-notation-id="${notationId}" data-line-id="${line}" data-first-word="${startWord}" data-last-word="${endWord}" width="${width}" height="100%" x="${x}" class="rectNotation"></rect></svg>`;
+  const domParser = new DOMParser();
+  const doc = domParser.parseFromString(rectHtml, 'image/svg+xml');
+  const rectElement = doc.querySelector('rect');
+  rectElement.addEventListener('mouseover', () => {
+    const peers = document.querySelectorAll(`[data-notation-id="${notationId}"]`);
+    for (let peer of peers) peer.classList.add('rectNotation-hover');
+  });
+
+  rectElement.addEventListener('mouseout', () => {
+    const peers = document.querySelectorAll(`[data-notation-id="${notationId}"]`);
+    for (let peer of peers) peer.classList.remove('rectNotation-hover');
+  });
+  return rectElement;
 }
 
 const loadLyricNotations = lyricNotations => {
@@ -66,8 +77,8 @@ const loadLyricNotations = lyricNotations => {
 
       const startPosition = startWord.getStartPositionOfChar(lineStartOffset - parseInt(startWord.dataset.charOffset)).x;
       const endPosition = endWord.getEndPositionOfChar(lineEndOffset - parseInt(endWord.dataset.charOffset) - 1).x;
-      const rect = drawLyricNotation(lineNumber, startWord.dataset.wordId, endWord.dataset.wordId, (endPosition - startPosition), startPosition)
-      lineElement.insertAdjacentHTML('afterbegin', rect);
+      const rect = drawLyricNotation(notation.id, lineNumber, startWord.dataset.wordId, endWord.dataset.wordId, (endPosition - startPosition), startPosition)
+      lineElement.insertAdjacentElement('afterbegin', rect);
     }
   }
 }
@@ -83,8 +94,14 @@ const overrideCopyBehaviour = () => {
 const magneticSelectionOnMouseUp = () => {
   const lyricContainer = document.getElementById('lyricContainer');
   
-  lyricContainer.addEventListener('mouseup', () => {
+  lyricContainer.addEventListener('mouseup', (event) => {
     const selection = window.getSelection();
+
+    if (event.target.dataset.notationType) {
+      resetSelectedText();
+      return;
+    };
+
     const { startNode, endNode } = getSelectionDetails();
 
     const range = new Range();
@@ -97,7 +114,7 @@ const magneticSelectionOnMouseUp = () => {
     const isInvalid = isOverlappingWithExistingNotations();
     console.log(`Overlapping: ${isInvalid}`)
 
-    isInvalid ? window.getSelection().removeAllRanges() : getSelectedText();
+    isInvalid ? resetSelectedText() : getSelectedText();
   })
 }
 
@@ -170,4 +187,13 @@ const getSelectedText = () => {
   document.getElementById('endOffset').value = endOffsetByLine
 
   return selectedLines.join(`\n`);
+}
+
+const resetSelectedText = () => {
+  window.getSelection().removeAllRanges();
+  document.getElementById('selectedText').value = '';
+  document.getElementById('startLine').value = '';
+  document.getElementById('startOffset').value = '';
+  document.getElementById('endLine').value = '';
+  document.getElementById('endOffset').value = '';
 }
