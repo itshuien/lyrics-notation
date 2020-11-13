@@ -21,3 +21,7 @@
 .lyric-notation > span {
   pointer-events: none;
 }
+
+#lyricNotationContent {
+  white-space: pre;
+}

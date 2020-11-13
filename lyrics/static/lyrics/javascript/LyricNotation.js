@@ -12,7 +12,9 @@ class LyricNotation {
     
     for (let lineNumber = startLine; lineNumber <= endLine; lineNumber++) {
       const { startWord, endWord } = this.getStartAndEndWord(lineNumber);
-      this.highlightPart(startWord, endWord);
+      if (startWord && endWord) {
+        this.highlightPart(startWord, endWord);
+      }
     }
   }
 
@@ -31,6 +33,8 @@ class LyricNotation {
     const lineElement = document.querySelector(`[data-line-id="${lineNumber}"]`);
     const wordElements = this.getWordElementsInLine(lineElement);
     const lastWordElement = wordElements.slice(-1)[0];
+
+    if (!wordElements.length) return { startWord: null, endWord: null };
 
     const lineStartOffset = lineNumber == this.position.startLine ? this.position.startOffset : 0;
     const lineEndOffset = lineNumber == this.position.endLine ? this.position.endOffset : parseInt(lastWordElement.dataset.charOffset) + lastWordElement.textContent.toString().length;

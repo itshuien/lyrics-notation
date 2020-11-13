@@ -1,0 +1,34 @@
+<form id="lyricNotationForm" action="{% url 'lyrics:add_lyric_notation' lyric.id %}" method="post" class="d-none">
+  {% csrf_token %}
+
+  <div class="form-row">
+    <div class="form-group col">
+      <label for="start_line">Start Line</label>
+      <input type="number" class="form-control" id="start_line" name="start_line" readonly>
+    </div>
+    <div class="form-group col">
+      <label for="start_offset">Start Offset</label>
+      <input type="number" class="form-control" id="start_offset" name="start_offset" readonly>
+    </div>
+    <div class="form-group col">
+      <label for="end_line">End Line</label>
+      <input type="number" class="form-control" id="end_line" name="end_line" readonly>
+    </div>
+    <div class="form-group col">
+      <label for="end_offset">End Offset</label>
+      <input type="number" class="form-control" id="end_offset" name="end_offset" readonly>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="selected_text">Selected Text</label>
+    <textarea class="form-control" id="selected_text" name="selected_text" rows="3" readonly required></textarea>
+  </div>
+
+  <div class="form-group">
+    <label for="content">Content</label>
+    <textarea class="form-control" id="content" name="content" rows="3" required></textarea>
+  </div>
+  <input type="submit" value="Add Notation" class="btn btn-success">
+  <button type="button" class="btn btn-secondary" value="Cancel">Cancel</div>
+</form>

@@ -93,13 +93,13 @@ class LyricSelection {
       selectedLines[selectedLines.length-1] = lyricLines[endLine].slice(0, endOffsetByLine);
     }
   
-    const selectedTextInput = document.getElementById('selectedText');
+    const selectedTextInput = document.getElementById('selected_text');
     selectedTextInput.value = selectedLines.join(`\n`);
   
-    document.getElementById('startLine').value = startLine
-    document.getElementById('startOffset').value = startOffsetByLine
-    document.getElementById('endLine').value = endLine
-    document.getElementById('endOffset').value = endOffsetByLine
+    document.getElementById('start_line').value = startLine
+    document.getElementById('start_offset').value = startOffsetByLine
+    document.getElementById('end_line').value = endLine
+    document.getElementById('end_offset').value = endOffsetByLine
   
     return selectedLines.join(`\n`);
   }
@@ -113,10 +113,10 @@ class LyricSelection {
 
   resetSelectedText() {
     window.getSelection().removeAllRanges();
-    document.getElementById('selectedText').value = '';
-    document.getElementById('startLine').value = '';
-    document.getElementById('startOffset').value = '';
-    document.getElementById('endLine').value = '';
-    document.getElementById('endOffset').value = '';
+    document.getElementById('selected_text').value = '';
+    document.getElementById('start_line').value = '';
+    document.getElementById('start_offset').value = '';
+    document.getElementById('end_line').value = '';
+    document.getElementById('end_offset').value = '';
   }
 }

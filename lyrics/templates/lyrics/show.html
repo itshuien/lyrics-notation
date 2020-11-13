@@ -38,41 +38,7 @@
 
     <div class="col">
       <div id="lyricNotationContent" class="d-none bg-light p-3"></div>
-
-      <form id="lyricNotationForm" action="{% url 'lyrics:add_lyric_notation' lyric.id %}" method="post" class="d-none">
-        {% csrf_token %}
-
-        <div class="form-row">
-          <div class="form-group col">
-            <label for="startLine">Start Line</label>
-            <input type="number" class="form-control" id="startLine" name="start_line" readonly>
-          </div>
-          <div class="form-group col">
-            <label for="startOffset">Start Offset</label>
-            <input type="number" class="form-control" id="startOffset" name="start_offset" readonly>
-          </div>
-          <div class="form-group col">
-            <label for="endLine">End Line</label>
-            <input type="number" class="form-control" id="endLine" name="end_line" readonly>
-          </div>
-          <div class="form-group col">
-            <label for="endOffset">End Offset</label>
-            <input type="number" class="form-control" id="endOffset" name="end_offset" readonly>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="selected_text">Selected Text</label>
-          <textarea class="form-control" id="selectedText" name="selected_text" rows="3" readonly></textarea>
-        </div>
-
-        <div class="form-group">
-          <label for="content">Content</label>
-          <textarea class="form-control" id="content" name="content" rows="3"></textarea>
-        </div>
-        <input type="submit" value="Add Notation" class="btn btn-success">
-        <button type="button" class="btn btn-secondary" value="Cancel">Cancel</div>
-      </form>
+      {% include "lyrics/forms/lyric_notation_form.html" with form=lyric_notation_form %}
     </div>
   </div>
 {% endblock %}
