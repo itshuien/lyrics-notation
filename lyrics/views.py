@@ -33,3 +33,9 @@ def add_lyric_notation(request, lyric_id):
     lyric_notation.save()
 
     return HttpResponseRedirect(reverse('lyrics:show', args=(lyric_id,)))
+
+def remove_lyric_notation(request, lyric_id, lyric_notation_id):
+    lyric_notation = LyricNotation.objects.get(pk=lyric_notation_id)
+    lyric_notation.delete()
+
+    return HttpResponseRedirect(reverse('lyrics:show', args=(lyric_id,)))

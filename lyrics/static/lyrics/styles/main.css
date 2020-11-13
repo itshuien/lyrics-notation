@@ -22,7 +22,7 @@
   pointer-events: none;
 }
 
-#lyricNotationCard .selected-text {
+.lyric-notation-card .selected-text {
   white-space: pre;
   border-left: 10px solid #666666;
   padding: 15px;
@@ -30,7 +30,7 @@
   border-radius: 10px;
 }
 
-#lyricNotationCard .content {
+.lyric-notation-card .content {
   white-space: pre;
   margin-top: 15px;
 }

@@ -83,10 +83,16 @@ class LyricNotation {
   addClickListener(wrapper) {
     wrapper.addEventListener('click', () => {
       document.getElementById('lyricNotationForm').classList.add('d-none');
-      const lyricNotationCard = document.getElementById('lyricNotationCard');
+      LyricNotation.hideAllLyricNotationCards();
+      const lyricNotationCard = document.querySelector(`.lyric-notation-card[data-notation-id="${this.id}"]`);
       lyricNotationCard.classList.remove('d-none');
-      lyricNotationCard.querySelector('.selected-text').textContent = this.selectedText;
-      lyricNotationCard.querySelector('.content').textContent = this.content;
     })
+  }
+
+  static hideAllLyricNotationCards() {
+    const lyricNotationCards = document.querySelectorAll('.lyric-notation-card');
+    for (let lyricNotationCard of lyricNotationCards) {
+      lyricNotationCard.classList.add('d-none');
+    }
   }
 }

@@ -28,7 +28,7 @@ class LyricSelection {
       if (!isInvalid) {
         this.getSelectedText();
         document.getElementById('lyricNotationForm').classList.remove('d-none');
-        document.getElementById('lyricNotationCard').classList.add('d-none');
+        LyricNotation.hideAllLyricNotationCards();
       }
     })
   }

@@ -37,7 +37,9 @@
     </div>
 
     <div class="col">
-      {% include "lyrics/lyric_notation_card.html" %}
+      {% for lyric_notation in lyric.lyricnotation_set.all %}
+        {% include "lyrics/lyric_notation_card.html" with lyric_notation=lyric_notation %}
+      {% endfor %}
       {% include "lyrics/forms/lyric_notation_form.html" with form=lyric_notation_form %}
     </div>
   </div>
