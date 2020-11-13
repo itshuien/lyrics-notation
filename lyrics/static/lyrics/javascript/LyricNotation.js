@@ -91,8 +91,11 @@ class LyricNotation {
 
   static hideAllLyricNotationCards() {
     const lyricNotationCards = document.querySelectorAll('.lyric-notation-card');
-    for (let lyricNotationCard of lyricNotationCards) {
-      lyricNotationCard.classList.add('d-none');
+    for (let card of lyricNotationCards) {
+      card.classList.add('d-none');
+      card.querySelector('.btn-close').addEventListener('click', function() {
+        card.classList.add('d-none');
+      })
     }
   }
 }

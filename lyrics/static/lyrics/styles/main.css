@@ -34,3 +34,11 @@
   white-space: pre;
   margin-top: 15px;
 }
+
+.lyric-notation-card button:hover {
+  opacity: 0.5;
+}
+
+.lyric-notation-card button:focus {
+  box-shadow: none;
+}
