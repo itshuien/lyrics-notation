@@ -83,8 +83,10 @@ class LyricNotation {
   addClickListener(wrapper) {
     wrapper.addEventListener('click', () => {
       document.getElementById('lyricNotationForm').classList.add('d-none');
-      document.getElementById('lyricNotationContent').classList.remove('d-none');
-      document.getElementById('lyricNotationContent').textContent = this.content;
+      const lyricNotationCard = document.getElementById('lyricNotationCard');
+      lyricNotationCard.classList.remove('d-none');
+      lyricNotationCard.querySelector('.selected-text').textContent = this.selectedText;
+      lyricNotationCard.querySelector('.content').textContent = this.content;
     })
   }
 }

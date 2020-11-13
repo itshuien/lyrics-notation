@@ -37,7 +37,7 @@
     </div>
 
     <div class="col">
-      <div id="lyricNotationContent" class="d-none bg-light p-3"></div>
+      {% include "lyrics/lyric_notation_card.html" %}
       {% include "lyrics/forms/lyric_notation_form.html" with form=lyric_notation_form %}
     </div>
   </div>
