@@ -3,26 +3,21 @@
   src: url('../fonts/sofiapro-light.otf') format("opentype");
 }
 
-.notation-wrapper {
+.lyric-word {
+  display: inline-block;
+  /* font-family: 'SofiaPro-Light'; */
+}
+
+.lyric-notation {
+  display: flex;
   background-color: #fff6b2;
-  padding: 3px 6px;
-  border-radius: 5px;
 }
 
-.rectNotation {
-  fill: #fff6b2;
-}
-
-.rectNotation-hover {
-  fill: #ffed67;
+.lyric-notation-focus {
+  background-color: #ffed67;
   cursor: pointer;
 }
 
-.rectNotation:focus {
-  outline: none;
-}
-
-text {
-  font-family: 'SofiaPro-Light';
+.lyric-notation > span {
   pointer-events: none;
 }
