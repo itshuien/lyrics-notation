@@ -2,7 +2,7 @@
   <div class="card-body">
     <div class="selected-text">{{ lyric_notation.selected_text }}</div>
     <p class="card-text content">{{ lyric_notation.content }}</p>
-    <form action="{% url 'lyrics:remove_lyric_notation' lyric_notation.lyric_id lyric_notation.id %}" method="delete">
+    <form action="{% url 'lyrics:remove_lyric_notation' lyric_notation.id %}" method="delete">
       <button type="submite" class="btn btn-danger">Remove</button>
     </form>
   </div>
