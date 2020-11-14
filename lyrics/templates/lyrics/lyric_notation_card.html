@@ -8,8 +8,8 @@
       </button>
       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
         <a class="dropdown-item btn-edit" href="#">Edit</a>
-        <form action="{% url 'lyrics:remove_lyric_notation' lyric_notation.id %}" method="delete">
-          <button type="submit" class="dropdown-item">Remove</button>
+        <form action="{% url 'lyrics:delete_lyric_notation' lyric_notation.id %}" method="delete">
+          <button type="submit" class="dropdown-item">Delete</button>
         </form>
       </div>
       <button class="btn btn-close p-0">
