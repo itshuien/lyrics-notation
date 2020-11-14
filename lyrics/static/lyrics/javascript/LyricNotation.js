@@ -96,6 +96,15 @@ class LyricNotation {
       card.querySelector('.btn-close').addEventListener('click', function() {
         card.classList.add('d-none');
       })
+      card.querySelector('.btn-edit').addEventListener('click', function() {
+        card.querySelector('.card-text').classList.add('d-none');
+        card.querySelector('.form-edit').classList.remove('d-none');
+      })
+      card.querySelector('.btn-cancel-edit').addEventListener('click', function() {
+        card.querySelector('.card-text').classList.remove('d-none');
+        card.querySelector('.form-edit').classList.add('d-none');
+        card.querySelector('.form-edit textarea').value = card.querySelector('.card-text').textContent;
+      })
     }
   }
 }

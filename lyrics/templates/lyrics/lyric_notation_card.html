@@ -7,7 +7,7 @@
         </svg>
       </button>
       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item" href="#">Edit</a>
+        <a class="dropdown-item btn-edit" href="#">Edit</a>
         <form action="{% url 'lyrics:remove_lyric_notation' lyric_notation.id %}" method="delete">
           <button type="submit" class="dropdown-item">Remove</button>
         </form>
@@ -18,7 +18,17 @@
         </svg>
       </button>
     </div>
+
     <div class="selected-text">{{ lyric_notation.selected_text }}</div>
     <p class="card-text content">{{ lyric_notation.content }}</p>
+
+    <form action="{% url 'lyrics:update_lyric_notation' lyric_notation.id %}" method="post" class="form-edit mt-3 d-none">
+      {% csrf_token %}
+      <div class="form-group">
+        <textarea name="content" class="form-control" rows="3" required>{{ lyric_notation.content }}</textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Confirm</button>
+      <button type="button" class="btn btn-secondary btn-cancel-edit">Cancel</button>
+    </form>
   </div>
 </div>
