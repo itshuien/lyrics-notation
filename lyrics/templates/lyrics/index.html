@@ -1,0 +1,24 @@
+{% extends "index.html" %}
+
+{% block content %}
+<h3 class="mb-3">Lyrics</h3>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Title</th>
+      <th scope="col">Artist</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for lyric in lyrics %}
+      <tr>
+        <th scope="row">{{ lyric.id }}</th>
+        <td><a href="{% url 'lyrics:show' lyric.id %}">{{ lyric.title }}</a></td>
+        <td>{{ lyric.artist }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

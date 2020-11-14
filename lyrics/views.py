@@ -7,6 +7,12 @@ from .utils import words_tokenizer
 
 import json
 
+def index(request):
+    context = {
+        'lyrics': Lyric.objects.all
+    }
+    return render(request, 'lyrics/index.html', context)
+
 def show(request, pk):
     lyric = Lyric.objects.get(pk=pk)
     lyric_notations = lyric.lyricnotation_set.all()

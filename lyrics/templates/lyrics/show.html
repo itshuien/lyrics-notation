@@ -14,7 +14,9 @@
 {% endblock %}
 
 {% block content %}
-  <h2>{{ lyric.title }}</h2>
+  <a href="{% url 'lyrics:index' %}">Back to lyrics</a>
+
+  <h2 class="mt-3">{{ lyric.title }}</h2>
   <h5>{{ lyric.artist }}</h5>
   <hr>
 
