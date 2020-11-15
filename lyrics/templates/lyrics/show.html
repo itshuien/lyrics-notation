@@ -8,6 +8,7 @@
     const lyricNotations = JSON.parse("{{ lyric_notations|escapejs }}");
     const lyricLines = JSON.parse("{{ lyric_lines|escapejs }}");
   </script>
+  <script src="{% static 'lyrics/javascript/LyricNotationCard.js' %}"></script>
   <script src="{% static 'lyrics/javascript/LyricNotation.js' %}"></script>
   <script src="{% static 'lyrics/javascript/LyricSelection.js' %}"></script>
   <script src="{% static 'lyrics/javascript/lyrics.js' %}" defer></script>
@@ -39,10 +40,12 @@
     </div>
 
     <div class="col">
-      {% for lyric_notation in lyric.lyricnotation_set.all %}
-        {% include "lyrics/lyric_notation_card.html" with lyric_notation=lyric_notation %}
-      {% endfor %}
-      {% include "lyrics/forms/lyric_notation_form.html" with form=lyric_notation_form %}
+      <div class="sticky-top" style="top: 20px;">
+        {% for lyric_notation in lyric.lyricnotation_set.all %}
+          {% include "lyrics/lyric_notation_card.html" %}
+        {% endfor %}
+        {% include "lyrics/lyric_notation_card.html" %}
+      </div>
     </div>
   </div>
 {% endblock %}

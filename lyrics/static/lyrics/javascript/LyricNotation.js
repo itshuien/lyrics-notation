@@ -82,29 +82,9 @@ class LyricNotation {
 
   addClickListener(wrapper) {
     wrapper.addEventListener('click', () => {
-      document.getElementById('lyricNotationForm').classList.add('d-none');
-      LyricNotation.hideAllLyricNotationCards();
+      LyricNotationCard.hideAll();
       const lyricNotationCard = document.querySelector(`.lyric-notation-card[data-notation-id="${this.id}"]`);
       lyricNotationCard.classList.remove('d-none');
     })
-  }
-
-  static hideAllLyricNotationCards() {
-    const lyricNotationCards = document.querySelectorAll('.lyric-notation-card');
-    for (let card of lyricNotationCards) {
-      card.classList.add('d-none');
-      card.querySelector('.btn-close').addEventListener('click', function() {
-        card.classList.add('d-none');
-      })
-      card.querySelector('.btn-edit').addEventListener('click', function() {
-        card.querySelector('.card-text').classList.add('d-none');
-        card.querySelector('.form-edit').classList.remove('d-none');
-      })
-      card.querySelector('.btn-cancel-edit').addEventListener('click', function() {
-        card.querySelector('.card-text').classList.remove('d-none');
-        card.querySelector('.form-edit').classList.add('d-none');
-        card.querySelector('.form-edit textarea').value = card.querySelector('.card-text').textContent;
-      })
-    }
   }
 }

@@ -5,6 +5,7 @@ class LyricSelection {
     this.overrideCopyBehaviour();
   }
 
+  /* TODO: Handle text selection error */
   applyMagneticSelectionOnMouseUp() {
     this.container.addEventListener('mouseup', event => {
       const selection = window.getSelection();
@@ -26,9 +27,10 @@ class LyricSelection {
       const isInvalid = this.isOverlappingWithExistingNotations();
       // console.log(`Overlapping: ${isInvalid}`)
       if (!isInvalid) {
-        this.getSelectedText();
-        document.getElementById('lyricNotationForm').classList.remove('d-none');
-        LyricNotation.hideAllLyricNotationCards();
+        LyricNotationCard.hideAll();
+        const lyricNotationCard = new LyricNotationCard('');
+        lyricNotationCard.show();
+        lyricNotationCard.setSelectedText(this.getSelectedText());
       }
     })
   }
@@ -52,8 +54,8 @@ class LyricSelection {
     }
   
     return {
-      startLine: parseInt(baseNode.parentNode.dataset.lineId),
-      endLine: parseInt(extentNode.parentNode.dataset.lineId),
+      startLine: parseInt(baseNode.closest('[data-line-id]').dataset?.lineId),
+      endLine: parseInt(extentNode.closest('[data-line-id]').dataset?.lineId),
       startOffsetByLine,
       endOffsetByLine,
       startNode: baseNode,

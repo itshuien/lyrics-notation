@@ -2,11 +2,7 @@ window.addEventListener('load', function() {
   loadLyricAttributes();
   loadLyricNotations();
   const lyricSelection = new LyricSelection('lyric');
-  const lyricNotationForm = document.getElementById('lyricNotationForm');
-  const lyricNotationFormCancelButton = lyricNotationForm.querySelector('button[value="Cancel"]')
-  lyricNotationFormCancelButton.addEventListener('click', function() {
-    lyricNotationForm.classList.add('d-none');
-  })
+  LyricNotationCard.initializeAll();
 })
 
 const loadLyricAttributes = () => {
