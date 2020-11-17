@@ -42,3 +42,12 @@
 .lyric-notation-card button:focus {
   box-shadow: none;
 }
+
+.lyric-line {
+  display: flex;
+  line-height: 2.3;
+}
+
+rt:before {
+  content: attr(data-rt);
+}

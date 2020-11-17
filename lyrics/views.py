@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 
-from .models import Lyric, LyricNotation
+from .models import Lyric, LyricNotation, PhoneticNotation
 from .utils import words_tokenizer
 
 import json
@@ -16,12 +16,14 @@ def index(request):
 def show(request, pk):
     lyric = Lyric.objects.get(pk=pk)
     lyric_notations = lyric.lyricnotation_set.all()
+    phonetic_notations = lyric.phoneticnotation_set.all()
 
     context = {
         'lyric': lyric,
         'lyric_lines': json.dumps(lyric.lines),
         'lyric_notations': json.dumps([record for record in lyric_notations.values()]),
-        'tokenized_lyric_lines': [words_tokenizer(line) for line in lyric.lines]
+        'tokenized_lyric_lines': [words_tokenizer(line) for line in lyric.lines],
+        'phonetic_notations': json.dumps([record for record in phonetic_notations.values()]),
     }
 
     return render(request, 'lyrics/show.html', context)

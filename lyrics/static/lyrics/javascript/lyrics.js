@@ -3,6 +3,7 @@ window.addEventListener('load', function() {
   loadLyricNotations();
   const lyricSelection = new LyricSelection('lyric');
   LyricNotationCard.initializeAll();
+  loadPhoneticNotations();
 })
 
 const loadLyricAttributes = () => {
@@ -33,5 +34,16 @@ const loadLyricNotations = () => {
     }
     const lyricNotation = new LyricNotation(notation['id'], notation['lyric_id'], notation['selected_text'], notation['content'], position);
     lyricNotation.highlight();
+  }
+}
+
+const loadPhoneticNotations = () => {
+  for (let notation of phoneticNotations) {
+    const position = {
+      line: notation['line'],
+      offset: notation['offset']
+    }
+    const phoneticNotation = new PhoneticNotation(notation['id'], notation['lyric_id'], notation['selected_text'], notation['content'], position);
+    phoneticNotation.annotate();
   }
 }

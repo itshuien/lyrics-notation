@@ -7,9 +7,12 @@
   <script>
     const lyricNotations = JSON.parse("{{ lyric_notations|escapejs }}");
     const lyricLines = JSON.parse("{{ lyric_lines|escapejs }}");
+    const phoneticNotations = JSON.parse("{{ phonetic_notations|escapejs }}");
+    console.log(phoneticNotations)
   </script>
   <script src="{% static 'lyrics/javascript/LyricNotationCard.js' %}"></script>
   <script src="{% static 'lyrics/javascript/LyricNotation.js' %}"></script>
+  <script src="{% static 'lyrics/javascript/PhoneticNotation.js' %}"></script>
   <script src="{% static 'lyrics/javascript/LyricSelection.js' %}"></script>
   <script src="{% static 'lyrics/javascript/lyrics.js' %}" defer></script>
 {% endblock %}
@@ -25,12 +28,12 @@
     <div class="col">
       <div id="lyric">
         {% for line in tokenized_lyric_lines %}
-          <div class="d-flex" data-line-id="{{ forloop.counter0 }}">
+          <div class="lyric-line" data-line-id="{{ forloop.counter0 }}">
             {% for word in line %}
               {% if word|cut:' ' == '' %}
-                <span class="lyric-word" data-word-id="{{ forloop.counter0 }}">&nbsp;</span>
+                <ruby class="lyric-word" data-word-id="{{ forloop.counter0 }}">&nbsp;</ruby>
               {% else %}
-                <span class="lyric-word" data-word-id="{{ forloop.counter0 }}">{{ word }}</span>
+                <ruby class="lyric-word" data-word-id="{{ forloop.counter0 }}">{{ word }}</ruby>
               {% endif %}
             {% endfor %}
             <br>
