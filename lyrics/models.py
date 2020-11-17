@@ -14,3 +14,10 @@ class LyricNotation(models.Model):
     start_offset    = models.IntegerField()
     end_line        = models.IntegerField()
     end_offset      = models.IntegerField()
+
+class PhoneticNotation(models.Model):
+    lyric           = models.ForeignKey(Lyric, on_delete=models.CASCADE)
+    selected_text   = models.CharField(max_length=50)
+    content         = models.CharField(max_length=50)
+    line            = models.IntegerField()
+    offset          = models.IntegerField()
