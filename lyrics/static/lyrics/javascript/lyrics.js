@@ -1,7 +1,9 @@
 window.addEventListener('load', function() {
+  const container = document.getElementById('lyric');
+  applyMagneticSelectionOnMouseUp(container);
+  overrideCopyBehaviour(container);
   loadLyricAttributes();
   loadLyricNotations();
-  const lyricSelection = new LyricSelection('lyric');
   LyricNotationCard.initializeAll();
   loadPhoneticNotations();
 })
