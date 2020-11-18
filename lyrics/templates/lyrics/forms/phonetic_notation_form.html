@@ -1,0 +1,28 @@
+{% if mode == 'create' %}
+  <form class="phonetic-notation-form mt-3" action="{% url 'lyrics:create_phonetic_notation' lyric.id %}" data-form-mode="create" method="post">
+    {% csrf_token %}
+
+    <input type="hidden" id="line" name="line">
+    <input type="hidden" id="offset" name="offset">
+
+    <input class="form-control d-none" name="selected_text" readonly required>
+
+    <div class="form-group">
+      <input class="form-control" name="content" placeholder="Phonetic notation" required>
+    </div>
+
+    <button type="submit" class="btn btn-success">Add</button>
+    <button type="button" class="btn btn-secondary btn-cancel">Cancel</button>
+  </form>
+{% else %}
+  <form class="phonetic-notation-form mt-3 d-none" action="{% url 'lyrics:update_phonetic_notation' phonetic_notation.id %}" data-form-mode="edit" method="post">
+    {% csrf_token %}
+
+    <div class="form-group">
+      <input name="content" class="form-control" placeholder="Phonetic notation" value="{{ phonetic_notation.content }}" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Confirm</button>
+    <button type="button" class="btn btn-secondary btn-cancel">Cancel</button>
+  </form>
+{% endif %}

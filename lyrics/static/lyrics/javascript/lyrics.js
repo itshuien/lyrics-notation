@@ -7,6 +7,8 @@ window.addEventListener('load', function() {
   LyricNotationCard.initializeAll();
   loadPhoneticNotations();
   initializeNotationSwitches();
+  initializeNotationToolbar();
+  PhoneticNotation.initializeCards();
 })
 
 const loadLyricAttributes = () => {
@@ -70,4 +72,47 @@ const initializeNotationSwitches = () => {
       this.checked ? notation.classList.remove('phonetic-notation-hidden') : notation.classList.add('phonetic-notation-hidden');
     }
   });
+}
+
+const initializeNotationToolbar = () => {
+  const lyricNotationButton = document.getElementById('lyric-notation-tool');
+  const phoneticNotationButton = document.getElementById('phonetic-notation-tool');
+
+  lyricNotationButton.addEventListener('click', function() {
+    PhoneticNotation.hideAllCards();
+
+    const selection = getSelectionDetails();
+    setLyricNotationForm(selection);
+
+    const lyricNotationCard = new LyricNotationCard('');
+    lyricNotationCard.show();
+    lyricNotationCard.setSelectedText(selection.text);
+  });
+
+  phoneticNotationButton.addEventListener('click', function() {
+    LyricNotationCard.hideAll();
+    PhoneticNotation.showCreateCard();
+
+    const selection = getSelectionDetails();
+    setPhoneticNotationForm(selection);
+    
+    const newPhoneticNotation = new PhoneticNotation('');
+    newPhoneticNotation.card.querySelector('.selected-text').textContent = selection.text;
+  });
+}
+
+const setLyricNotationForm = selection => {
+  const lyricNotationForm = document.querySelector('.lyric-notation-form[data-form-mode="create"]');
+  lyricNotationForm['selected_text'].value = selection.text;
+  lyricNotationForm['start_line'].value = selection.startLine;
+  lyricNotationForm['start_offset'].value = selection.startOffsetByLine;
+  lyricNotationForm['end_line'].value = selection.endLine;
+  lyricNotationForm['end_offset'].value = selection.endOffsetByLine;
+}
+
+const setPhoneticNotationForm = selection => {
+  const phoneticNotationForm = document.querySelector('.phonetic-notation-form[data-form-mode="create"]');
+  phoneticNotationForm['selected_text'].value = selection.text;
+  phoneticNotationForm['line'].value = selection.startLine;
+  phoneticNotationForm['offset'].value = selection.startOffsetByLine;
 }

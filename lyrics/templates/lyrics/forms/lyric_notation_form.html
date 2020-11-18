@@ -14,7 +14,7 @@
     </div>
 
     <button type="submit" class="btn btn-success">Add</button>
-    <button type="button" class="btn btn-secondary btn-cancel">Cancel</div>
+    <button type="button" class="btn btn-secondary btn-cancel">Cancel</button>
   </form>
 {% else %}
   <form class="lyric-notation-form mt-3 d-none" action="{% url 'lyrics:update_lyric_notation' lyric_notation.id %}" data-form-mode="edit" method="post">

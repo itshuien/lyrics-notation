@@ -54,3 +54,25 @@ def delete_lyric_notation(request, lyric_notation_id):
     lyric_notation.delete()
 
     return HttpResponseRedirect(reverse('lyrics:show', args=(lyric_notation.lyric_id,)))
+
+def create_phonetic_notation(request, lyric_id):
+    lyric = Lyric.objects.get(pk=lyric_id)
+
+    phonetic_notation = PhoneticNotation(lyric=lyric,
+                                        selected_text=request.POST['selected_text'],
+                                        content=request.POST['content'],
+                                        line=request.POST['line'],
+                                        offset=request.POST['offset'])
+    phonetic_notation.save()
+
+    return HttpResponseRedirect(reverse('lyrics:show', args=(lyric_id,)))
+
+def update_phonetic_notation(request, phonetic_notation_id):
+    phonetic_notation = PhoneticNotation.objects.get(pk=phonetic_notation_id)
+    phonetic_notation.content = request.POST['content']
+    phonetic_notation.save()
+
+    return HttpResponseRedirect(reverse('lyrics:show', args=(phonetic_notation.lyric_id,)))
+
+# def delete_phonetic_notation(request, phonetic_notation_id):
+#     pass

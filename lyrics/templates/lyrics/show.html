@@ -8,7 +8,6 @@
     const lyricNotations = JSON.parse("{{ lyric_notations|escapejs }}");
     const lyricLines = JSON.parse("{{ lyric_lines|escapejs }}");
     const phoneticNotations = JSON.parse("{{ phonetic_notations|escapejs }}");
-    console.log(phoneticNotations)
   </script>
   <script src="{% static 'lyrics/javascript/LyricNotationCard.js' %}"></script>
   <script src="{% static 'lyrics/javascript/LyricNotation.js' %}"></script>
@@ -56,10 +55,20 @@
           </div>
         </div>
 
+        <div id="notation-toolbar" class="mb-3">
+          <button id="lyric-notation-tool" type="button" class="btn btn-primary" disabled>+L</button>
+          <button id="phonetic-notation-tool" type="button" class="btn btn-primary" disabled>+P</button>
+        </div>
+
         {% for lyric_notation in lyric.lyricnotation_set.all %}
           {% include "lyrics/lyric_notation_card.html" %}
         {% endfor %}
         {% include "lyrics/lyric_notation_card.html" %}
+
+        {% for phonetic_notation in lyric.phoneticnotation_set.all %}
+          {% include "lyrics/phonetic_notation_card.html" %}
+        {% endfor %}
+        {% include "lyrics/phonetic_notation_card.html" %}
       </div>
     </div>
   </div>

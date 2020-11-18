@@ -3,10 +3,7 @@ function applyMagneticSelectionOnMouseUp(container) {
   container.addEventListener('mouseup', event => {
     const selection = window.getSelection();
 
-    if (event.target.dataset.notationId) {
-      // resetSelectedText();
-      return;
-    };
+    if (event.target.dataset.notationId) return;
 
     const { startNode, endNode } = this.getSelectionDetails();
 
@@ -17,16 +14,24 @@ function applyMagneticSelectionOnMouseUp(container) {
     selection.removeAllRanges();
     selection.addRange(range);
 
-    const isValid = !this.isOverlappingWithExistingNotations();
-
-    if (isValid) {
-      LyricNotationCard.hideAll();
-      // this.handleSelection();
-      const lyricNotationCard = new LyricNotationCard('');
-      lyricNotationCard.show();
-      lyricNotationCard.setSelectedText(this.getSelectedText());
-    }
+    this.handleSelection();
   })
+}
+
+function handleSelection() {
+  const isValid = !this.isOverlappingWithExistingNotations();
+  const toolbar = document.getElementById('notation-toolbar');
+
+  if (isValid) {
+    LyricNotationCard.hideAll();
+    PhoneticNotation.hideAllCards();
+    const isOnlyOneWordSelected = window.getSelection().baseNode == window.getSelection().extentNode;
+    toolbar.firstElementChild.disabled = false
+    toolbar.lastElementChild.disabled = isOnlyOneWordSelected ? false : true;
+  } else {
+    toolbar.firstElementChild.disabled = true;
+    toolbar.lastElementChild.disabled = true;
+  }
 }
 
 function getSelectionDetails() {
@@ -47,15 +52,24 @@ function getSelectionDetails() {
     [startOffsetByLine, endOffsetByLine] = [endOffsetByLine, startOffsetByLine];
   }
 
+  const startLine = parseInt(baseNode.closest('[data-line-id]').dataset?.lineId);
+  const endLine = parseInt(extentNode.closest('[data-line-id]').dataset?.lineId);
+
+  const selectedLines = lyricLines.slice(startLine, endLine+1);
+  if (startLine == endLine) {
+    selectedLines[0] = lyricLines[startLine].slice(startOffsetByLine, endOffsetByLine);
+  } else {
+    selectedLines[0] = lyricLines[startLine].slice(startOffsetByLine);
+    selectedLines[selectedLines.length-1] = lyricLines[endLine].slice(0, endOffsetByLine);
+  }
+
   return {
-    startLine: parseInt(baseNode.closest('[data-line-id]').dataset?.lineId),
-    endLine: parseInt(extentNode.closest('[data-line-id]').dataset?.lineId),
-    startOffsetByLine,
-    endOffsetByLine,
+    startLine, endLine,
+    startOffsetByLine, endOffsetByLine,
+    startOffsetByLyric, endOffsetByLyric,
     startNode: baseNode,
     endNode: extentNode,
-    startOffsetByLyric,
-    endOffsetByLyric
+    text: selectedLines.join(`\n`),
   };
 }
 
@@ -78,40 +92,9 @@ function isOverlappingWithExistingNotations() {
   return false;
 }
 
-function getSelectedText() {
-  const { startLine, endLine, startOffsetByLine, endOffsetByLine } = this.getSelectionDetails();
-  const selectedLines = lyricLines.slice(startLine, endLine+1);
-
-  if (startLine == endLine) {
-    selectedLines[0] = lyricLines[startLine].slice(startOffsetByLine, endOffsetByLine);
-  } else {
-    selectedLines[0] = lyricLines[startLine].slice(startOffsetByLine);
-    selectedLines[selectedLines.length-1] = lyricLines[endLine].slice(0, endOffsetByLine);
-  }
-
-  const selectedTextInput = document.getElementById('selected_text');
-  selectedTextInput.value = selectedLines.join(`\n`);
-
-  document.getElementById('start_line').value = startLine
-  document.getElementById('start_offset').value = startOffsetByLine
-  document.getElementById('end_line').value = endLine
-  document.getElementById('end_offset').value = endOffsetByLine
-
-  return selectedLines.join(`\n`);
-}
-
 function overrideCopyBehaviour(container) {
   container.addEventListener('copy', event => {
-    event.clipboardData.setData('text/plain', this.getSelectedText());
+    event.clipboardData.setData('text/plain', this.getSelectionDetails().text);
     event.preventDefault();
   });
-}
-
-function resetSelectedText() {
-  window.getSelection().removeAllRanges();
-  document.getElementById('selected_text').value = '';
-  document.getElementById('start_line').value = '';
-  document.getElementById('start_offset').value = '';
-  document.getElementById('end_line').value = '';
-  document.getElementById('end_offset').value = '';
 }
