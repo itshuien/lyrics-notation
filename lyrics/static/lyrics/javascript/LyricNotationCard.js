@@ -30,7 +30,7 @@ class LyricNotationCard {
     closeButton.addEventListener('click', function() {
       card.classList.add('d-none');
       if (!card.dataset.notationId) {
-        card.querySelector('#lyricNotationForm').reset();
+        card.querySelector('.lyric-notation-form').reset();
       }
     })
   }
@@ -39,7 +39,7 @@ class LyricNotationCard {
     const editButton = card.querySelector('.btn-edit');
     editButton.addEventListener('click', function() {
       card.querySelector('.card-text').classList.add('d-none');
-      card.querySelector('#lyricNotationForm').classList.remove('d-none');
+      card.querySelector('.lyric-notation-form').classList.remove('d-none');
     })
   }
 
@@ -48,11 +48,11 @@ class LyricNotationCard {
     cancelButton.addEventListener('click', function() {
       if (card.dataset.notationId) {
         card.querySelector('.card-text').classList.remove('d-none');
-        card.querySelector('#lyricNotationForm').classList.add('d-none');
-        card.querySelector('#lyricNotationForm textarea').value = card.querySelector('.card-text').textContent;
+        card.querySelector('.lyric-notation-form').classList.add('d-none');
+        card.querySelector('.lyric-notation-form textarea').value = card.querySelector('.card-text').textContent;
       } else {
         card.classList.add('d-none');
-        card.querySelector('#lyricNotationForm').reset();
+        card.querySelector('.lyric-notation-form').reset();
       }
     })
   }
