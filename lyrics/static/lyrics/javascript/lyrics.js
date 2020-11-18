@@ -6,6 +6,7 @@ window.addEventListener('load', function() {
   loadLyricNotations();
   LyricNotationCard.initializeAll();
   loadPhoneticNotations();
+  initializeNotationSwitches();
 })
 
 const loadLyricAttributes = () => {
@@ -48,4 +49,25 @@ const loadPhoneticNotations = () => {
     const phoneticNotation = new PhoneticNotation(notation['id'], notation['lyric_id'], notation['selected_text'], notation['content'], position);
     phoneticNotation.annotate();
   }
+}
+
+const initializeNotationSwitches = () => {
+  const lyricNotationSwitch = document.getElementById('lyricNotationSwitch');
+  lyricNotationSwitch.addEventListener('change', function() {
+    if (this.checked) {
+      const lyricNotationWrappers = document.querySelectorAll('.lyric-notation[data-notation-id]');
+      for (let wrapper of lyricNotationWrappers)  wrapper.classList.remove('lyric-notation-hidden');
+    } else {
+      const lyricNotationWrappers = document.querySelectorAll('.lyric-notation[data-notation-id]');
+      for (let wrapper of lyricNotationWrappers) wrapper.classList.add('lyric-notation-hidden');
+    }
+  });
+
+  const phoneticNotationSwitch = document.getElementById('phoneticNotationSwitch');
+  phoneticNotationSwitch.addEventListener('change', function() {
+    const phoneticallyNotation = document.querySelectorAll('.lyric-word rt[data-rt]');
+    for (let notation of phoneticallyNotation) {
+      this.checked ? notation.classList.remove('phonetic-notation-hidden') : notation.classList.add('phonetic-notation-hidden');
+    }
+  });
 }

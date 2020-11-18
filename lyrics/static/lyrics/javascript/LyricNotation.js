@@ -70,11 +70,13 @@ class LyricNotation {
 
   addHoverEffect(wrapper) {
     wrapper.addEventListener('mouseover', () => {
+      if (wrapper.classList.contains('lyric-notation-hidden')) return;
       const peers = document.querySelectorAll(`[data-notation-id="${this.id}"]`);
       for (let peer of peers) peer.classList.add('lyric-notation-focus');
     });
   
     wrapper.addEventListener('mouseout', () => {
+      if (wrapper.classList.contains('lyric-notation-hidden')) return;
       const peers = document.querySelectorAll(`[data-notation-id="${this.id}"]`);
       for (let peer of peers) peer.classList.remove('lyric-notation-focus');
     });
@@ -82,6 +84,7 @@ class LyricNotation {
 
   addClickListener(wrapper) {
     wrapper.addEventListener('click', () => {
+      if (wrapper.classList.contains('lyric-notation-hidden')) return;
       LyricNotationCard.hideAll();
       const lyricNotationCard = document.querySelector(`.lyric-notation-card[data-notation-id="${this.id}"]`);
       lyricNotationCard.classList.remove('d-none');

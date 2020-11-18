@@ -44,6 +44,18 @@
 
     <div class="col">
       <div class="sticky-top" style="top: 20px;">
+
+        <div class="d-flex mb-3">
+          <div class="custom-control custom-switch">
+            <input type="checkbox" class="custom-control-input" id="lyricNotationSwitch" checked>
+            <label class="custom-control-label" for="lyricNotationSwitch">Lyric Notations</label>
+          </div>
+          <div class="custom-control custom-switch ml-3">
+            <input type="checkbox" class="custom-control-input" id="phoneticNotationSwitch" checked>
+            <label class="custom-control-label" for="phoneticNotationSwitch">Phonetic Notations</label>
+          </div>
+        </div>
+
         {% for lyric_notation in lyric.lyricnotation_set.all %}
           {% include "lyrics/lyric_notation_card.html" %}
         {% endfor %}

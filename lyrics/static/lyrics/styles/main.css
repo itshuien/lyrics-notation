@@ -18,6 +18,11 @@
   cursor: pointer;
 }
 
+.lyric-notation.lyric-notation-hidden {
+  display: flex;
+  background-color: transparent;
+}
+
 .lyric-notation > span {
   pointer-events: none;
 }
@@ -50,4 +55,13 @@
 
 rt:before {
   content: attr(data-rt);
+}
+
+.lyric-word-focus {
+  color: #007bff;
+  cursor: pointer;
+}
+
+rt.phonetic-notation-hidden {
+  display: none;
 }

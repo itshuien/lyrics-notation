@@ -9,6 +9,7 @@ class PhoneticNotation {
   
   annotate() {
     const wordElement = this.getWordElement();
+    this.addHoverEventListener(wordElement)
     const rubyAnnotation = this.buildRubyAnnotation();
     wordElement.appendChild(rubyAnnotation);
   }
@@ -22,5 +23,19 @@ class PhoneticNotation {
     const rubyText = document.createElement('rt');
     rubyText.setAttribute('data-rt', this.content);
     return rubyText;
+  }
+
+  addHoverEventListener(wordElement) {
+    wordElement.addEventListener('mouseover', () => {
+      if (!wordElement.querySelector('rt.phonetic-notation-hidden')) {
+        wordElement.classList.add('lyric-word-focus');
+      }
+    })
+
+    wordElement.addEventListener('mouseout', () => {
+      if (!wordElement.querySelector('rt.phonetic-notation-hidden')) {
+        wordElement.classList.remove('lyric-word-focus');
+      }
+    })
   }
 }
