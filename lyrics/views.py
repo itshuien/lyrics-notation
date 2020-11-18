@@ -74,5 +74,8 @@ def update_phonetic_notation(request, phonetic_notation_id):
 
     return HttpResponseRedirect(reverse('lyrics:show', args=(phonetic_notation.lyric_id,)))
 
-# def delete_phonetic_notation(request, phonetic_notation_id):
-#     pass
+def delete_phonetic_notation(request, phonetic_notation_id):
+    phonetic_notation = PhoneticNotation.objects.get(pk=phonetic_notation_id)
+    phonetic_notation.delete()
+
+    return HttpResponseRedirect(reverse('lyrics:show', args=(phonetic_notation.lyric_id,)))
