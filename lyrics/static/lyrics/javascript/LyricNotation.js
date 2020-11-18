@@ -24,9 +24,13 @@ class LyricNotation {
     range.setEnd(endWord.firstChild, endWord.textContent.length);
 
     const wrapper = this.buildWrapper();
-    wrapper.appendChild(range.extractContents());
-
-    range.insertNode(wrapper);
+    if (startWord == endWord) {
+      range.selectNode(startWord);
+      range.surroundContents(wrapper);
+    } else {
+      wrapper.appendChild(range.extractContents());
+      range.insertNode(wrapper);
+    }
   }
 
   getStartAndEndWord(lineNumber) {
