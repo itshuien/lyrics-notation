@@ -97,6 +97,8 @@ class PhoneticNotation {
   addClickEventListener(wordElement) {
     wordElement.addEventListener('click', () => {
       if (wordElement.querySelector('rt').classList.contains('phonetic-notation-hidden')) return;
+
+      PhoneticNotation.hideAllCards();
       LyricNotationCard.hideAll();
 
       const phoneticNotationCard = document.querySelector(`.phonetic-notation-card[data-notation-id="${this.id}"]`);

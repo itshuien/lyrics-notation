@@ -19,18 +19,19 @@ function applyMagneticSelectionOnMouseUp(container) {
 }
 
 function handleSelection() {
-  const isValid = !this.isOverlappingWithExistingNotations();
-  const toolbar = document.getElementById('notation-toolbar');
+  const lyricNotationButton = document.getElementById('lyric-notation-tool');
+  const phoneticNotationButton = document.getElementById('phonetic-notation-tool');
 
-  if (isValid) {
+  const isOnlyOneWordSelected = window.getSelection().baseNode == window.getSelection().extentNode;
+  const wordHasPhoneticNotation = window.getSelection().baseNode.parentNode?.querySelector('rt');
+  phoneticNotationButton.disabled = isOnlyOneWordSelected ? wordHasPhoneticNotation : true;
+
+  if (this.isOverlappingWithExistingLyricNotations()) {
+    lyricNotationButton.disabled = true;
+  } else {
     LyricNotationCard.hideAll();
     PhoneticNotation.hideAllCards();
-    const isOnlyOneWordSelected = window.getSelection().baseNode == window.getSelection().extentNode;
-    toolbar.firstElementChild.disabled = false
-    toolbar.lastElementChild.disabled = isOnlyOneWordSelected ? false : true;
-  } else {
-    toolbar.firstElementChild.disabled = true;
-    toolbar.lastElementChild.disabled = true;
+    lyricNotationButton.disabled = false;
   }
 }
 
@@ -73,7 +74,7 @@ function getSelectionDetails() {
   };
 }
 
-function isOverlappingWithExistingNotations() {
+function isOverlappingWithExistingLyricNotations() {
   const selection = this.getSelectionDetails();
 
   const start1 = selection.startOffsetByLyric;
