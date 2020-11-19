@@ -29,7 +29,7 @@ function handleSelection() {
   if (this.isOverlappingWithExistingLyricNotations()) {
     lyricNotationButton.disabled = true;
   } else {
-    LyricNotationCard.hideAll();
+    LyricNotation.hideAllCards();
     PhoneticNotation.hideAllCards();
     lyricNotationButton.disabled = false;
   }

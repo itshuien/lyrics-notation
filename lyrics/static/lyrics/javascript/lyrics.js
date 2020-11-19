@@ -4,10 +4,10 @@ window.addEventListener('load', function() {
   overrideCopyBehaviour(container);
   loadLyricAttributes();
   loadLyricNotations();
-  LyricNotationCard.initializeAll();
   loadPhoneticNotations();
   initializeNotationSwitches();
   initializeNotationToolbar();
+  LyricNotation.initializeCards();
   PhoneticNotation.initializeCards();
 })
 
@@ -87,24 +87,24 @@ const initializeNotationToolbar = () => {
 
   lyricNotationButton.addEventListener('click', function() {
     PhoneticNotation.hideAllCards();
+    LyricNotation.showCreateCard();
 
     const selection = getSelectionDetails();
     setLyricNotationForm(selection);
 
-    const lyricNotationCard = new LyricNotationCard('');
-    lyricNotationCard.show();
-    lyricNotationCard.setSelectedText(selection.text);
+    const lyricNotationCard = LyricNotation.getCard('');
+    lyricNotationCard.querySelector('.selected-text').textContent = selection.text;
   });
 
   phoneticNotationButton.addEventListener('click', function() {
-    LyricNotationCard.hideAll();
+    LyricNotation.hideAllCards();
     PhoneticNotation.showCreateCard();
 
     const selection = getSelectionDetails();
     setPhoneticNotationForm(selection);
     
-    const newPhoneticNotation = new PhoneticNotation('');
-    newPhoneticNotation.card.querySelector('.selected-text').textContent = selection.text;
+    const phoneticNotationCard = PhoneticNotation.getCard('');
+    phoneticNotationCard.querySelector('.selected-text').textContent = selection.text;
   });
 }
 

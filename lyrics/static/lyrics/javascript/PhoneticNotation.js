@@ -5,7 +5,10 @@ class PhoneticNotation {
     this.selectedText = selectedText;
     this.content = content;
     this.position = position;
-    this.card = document.querySelector(`.phonetic-notation-card[data-notation-id="${this.id}"]`);
+  }
+
+  static getCard(id) {
+    return document.querySelector(`.phonetic-notation-card[data-notation-id="${id}"]`);
   }
 
   static initializeCards() {
@@ -99,7 +102,7 @@ class PhoneticNotation {
       if (wordElement.querySelector('rt').classList.contains('phonetic-notation-hidden')) return;
 
       PhoneticNotation.hideAllCards();
-      LyricNotationCard.hideAll();
+      LyricNotation.hideAllCards();
 
       const phoneticNotationCard = document.querySelector(`.phonetic-notation-card[data-notation-id="${this.id}"]`);
       phoneticNotationCard.classList.remove('d-none');
