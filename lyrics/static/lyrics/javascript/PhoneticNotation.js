@@ -1,68 +1,9 @@
-class PhoneticNotation {
+class PhoneticNotation extends Notation {
   constructor(id, lyricId, selectedText, content, position) {
-    this.id = id;
-    this.lyricId = lyricId;
-    this.selectedText = selectedText;
-    this.content = content;
-    this.position = position;
+    super(id, lyricId, selectedText, content, position);
   }
 
-  static getCard(id) {
-    return document.querySelector(`.phonetic-notation-card[data-notation-id="${id}"]`);
-  }
-
-  static initializeCards() {
-    const cards = document.querySelectorAll('.phonetic-notation-card');
-    for (let card of cards) this.addCardEventListeners(card);
-  }
-
-  static hideAllCards() {
-    const cards = document.querySelectorAll('.phonetic-notation-card');
-    for (let card of cards) card.classList.add('d-none');
-  }
-
-  static showCreateCard() {
-    const card = document.querySelector('.phonetic-notation-card[data-notation-id=""]');
-    card.classList.remove('d-none');
-  }
-
-  static addCardEventListeners(card) {
-    this.addCloseButtonEventListener(card);
-    this.addCancelButtonEventListener(card);
-    if (card.dataset.notationId) this.addEditButtonEventListener(card);
-  }
-
-  static addCloseButtonEventListener(card) {
-    const closeButton = card.querySelector('.btn-close');
-    closeButton.addEventListener('click', function() {
-      card.classList.add('d-none');
-      if (!card.dataset.notationId) {
-        card.querySelector('.phonetic-notation-form').reset();
-      }
-    })
-  }
-
-  static addEditButtonEventListener(card) {
-    const editButton = card.querySelector('.btn-edit');
-    editButton.addEventListener('click', function() {
-      card.querySelector('.card-text').classList.add('d-none');
-      card.querySelector('.phonetic-notation-form').classList.remove('d-none');
-    })
-  }
-
-  static addCancelButtonEventListener(card) {
-    const cancelButton = card.querySelector('.btn-cancel');
-    cancelButton.addEventListener('click', function() {
-      if (card.dataset.notationId) {
-        card.querySelector('.card-text').classList.remove('d-none');
-        card.querySelector('.phonetic-notation-form').classList.add('d-none');
-        card.querySelector('.phonetic-notation-form input[name="content"]').value = card.querySelector('.card-text').textContent;
-      } else {
-        card.classList.add('d-none');
-        card.querySelector('.phonetic-notation-form').reset();
-      }
-    })
-  }
+  static notationType = 'phonetic';
   
   annotate() {
     const wordElement = this.getWordElement();
