@@ -78,6 +78,13 @@ const initializeNotationToolbar = () => {
   const lyricNotationButton = document.getElementById('lyric-notation-tool');
   const phoneticNotationButton = document.getElementById('phonetic-notation-tool');
 
+  document.addEventListener('selectionchange', function() {
+    if (!window.getSelection().toString()) {
+      lyricNotationButton.disabled = true;
+      phoneticNotationButton.disabled = true;
+    }
+  })
+
   lyricNotationButton.addEventListener('click', function() {
     PhoneticNotation.hideAllCards();
 
