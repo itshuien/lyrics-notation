@@ -39,7 +39,7 @@ class Notation {
     closeButton.addEventListener('click', () => {
       card.classList.add('d-none');
       if (!card.dataset.notationId) {
-        card.querySelector(`.${this.notationType}-form`).reset();
+        card.querySelector(`.${this.notationType}-notation-form`).reset();
       }
     })
   }
