@@ -47,7 +47,6 @@ class Notation {
   static addEditButtonEventListener(card) {
     const editButton = card.querySelector('.btn-edit');
     editButton.addEventListener('click', () => {
-      console.log('edit')
       card.querySelector('.card-text').classList.add('d-none');
       card.querySelector(`.${this.notationType}-notation-form`).classList.remove('d-none');
     })

@@ -1,19 +1,21 @@
 {% extends "index.html" %}
 
 {% load static %}
+{% load compress %}
 
 {% block script %}
-  <link rel="stylesheet" type="text/css" href="{% static 'lyrics/styles/main.css' %}">
   <script>
     const lyricNotations = JSON.parse("{{ lyric_notations|escapejs }}");
     const lyricLines = JSON.parse("{{ lyric_lines|escapejs }}");
     const phoneticNotations = JSON.parse("{{ phonetic_notations|escapejs }}");
   </script>
-  <script src="{% static 'lyrics/javascript/Notation.js' %}"></script>
-  <script src="{% static 'lyrics/javascript/LyricNotation.js' %}"></script>
-  <script src="{% static 'lyrics/javascript/PhoneticNotation.js' %}"></script>
-  <script src="{% static 'lyrics/javascript/LyricSelection.js' %}"></script>
-  <script src="{% static 'lyrics/javascript/lyrics.js' %}" defer></script>
+  {% compress js file %}
+    <script type="text/javascript" src="{% static 'lyrics/javascript/Notation.js' %}"></script>
+    <script type="text/javascript" src="{% static 'lyrics/javascript/LyricNotation.js' %}"></script>
+    <script type="text/javascript" src="{% static 'lyrics/javascript/PhoneticNotation.js' %}"></script>
+    <script type="text/javascript" src="{% static 'lyrics/javascript/LyricSelection.js' %}"></script>
+    <script type="text/javascript" src="{% static 'lyrics/javascript/lyrics.js' %}" defer></script>
+  {% endcompress %}
 {% endblock %}
 
 {% block content %}
