@@ -3,65 +3,51 @@
   src: url('../fonts/sofiapro-light.otf') format("opentype");
 }
 
-.lyric-word {
-  display: inline-block;
-  /* font-family: 'SofiaPro-Light'; */
-}
-
-.lyric-notation {
-  display: flex;
-  background-color: #fff6b2;
-}
-
-.lyric-notation-focus {
-  background-color: #ffed67;
-  cursor: pointer;
-}
-
-.lyric-notation.lyric-notation-hidden {
-  display: flex;
-  background-color: transparent;
-}
-
-.lyric-notation > span {
-  pointer-events: none;
-}
-
-.lyric-notation-card .selected-text {
-  white-space: pre;
-  border-left: 10px solid #666666;
-  padding: 15px;
-  background-color: #f5f5f5;
-  border-radius: 10px;
-}
-
-.lyric-notation-card .content {
-  white-space: pre;
-  margin-top: 15px;
-}
-
-.lyric-notation-card button:hover {
-  opacity: 0.5;
-}
-
-.lyric-notation-card button:focus {
-  box-shadow: none;
-}
-
 .lyric-line {
   display: flex;
   line-height: 2.3;
 }
 
-rt:before {
-  content: attr(data-rt);
+.lyric-word {
+  display: inline-block;
+  // font-family: 'SofiaPro-Light';
+
+  &.lyric-word-focus {
+    color: #007bff;
+    cursor: pointer;
+  }
+
+  rt {
+    &:before { content: attr(data-rt); }
+    &.phonetic-notation-hidden { display: none; }
+  }
 }
 
-.lyric-word-focus {
-  color: #007bff;
-  cursor: pointer;
+.lyric-notation {
+  display: flex;
+  background-color: #fff6b2;
+
+  &.lyric-notation-focus {
+    background-color: #ffed67;
+    cursor: pointer;
+  }
+
+  &.lyric-notation-hidden {
+    background-color: transparent;
+  }
 }
 
-rt.phonetic-notation-hidden {
-  display: none;
+.lyric-notation-card {
+  .selected-text {
+    white-space: pre;
+    border-left: 10px solid #666666;
+    padding: 15px;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+  }
+
+  .content {
+    white-space: pre;
+    margin-top: 15px;
+  }
 }
