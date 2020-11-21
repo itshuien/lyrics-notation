@@ -3,9 +3,71 @@
   src: url('../fonts/sofiapro-light.otf') format("opentype");
 }
 
+#lyric-page {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-areas: 
+    "header header header header header"
+    "main main main sidebar sidebar";
+  margin: 50px 0px;
+
+  #header {
+    grid-area: header;
+    margin-bottom: 1rem;
+  }
+
+  #sidebar {
+    grid-area: sidebar;
+    margin-left: 1rem;
+  }
+
+  #lyric {
+    grid-area: main;
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: .25rem;
+    font-size: 18px;
+  }
+}
+
+#notation-toolbar {
+  background: #ffffff;
+  padding: 10px;
+  border-radius: .25rem;
+  display: flex;
+  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.04);
+
+  button {
+    color: #007bff;
+    background-color: #eaf4ff;
+    padding: 5px 10px;
+    width: 36px;
+
+    &:hover { color: #004fa3; }
+    &:focus { box-shadow: none; }
+    &:disabled {
+      color: #74818f;
+      background-color: #eeeeee;
+    }
+  }
+
+  select {
+    color: #007bff;
+    background-color: #eaf4ff;
+    border: none;
+    width: 150px;
+
+    &:hover { cursor: pointer; }
+  }
+}
+
+.card {
+  border: none;
+}
+
 .lyric-line {
   display: flex;
-  line-height: 2.3;
+  line-height: 2.5;
 }
 
 .lyric-word {
@@ -18,6 +80,7 @@
   }
 
   rt {
+    font-size: 12px;
     &:before { content: attr(data-rt); }
     &.phonetic-notation-hidden { display: none; }
   }
@@ -25,10 +88,10 @@
 
 .lyric-notation {
   display: flex;
-  background-color: #fff6b2;
+  background-color: #eaf4ff;
 
   &.lyric-notation-focus {
-    background-color: #ffed67;
+    background-color: #d1e7ff;
     cursor: pointer;
   }
 
@@ -50,4 +113,9 @@
     white-space: pre;
     margin-top: 15px;
   }
+}
+
+.lyric-notation-card,
+.phonetic-notation-card {
+  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.04);
 }
