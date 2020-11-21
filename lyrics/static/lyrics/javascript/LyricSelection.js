@@ -1,6 +1,8 @@
 /* TODO: Handle text selection error */
 function applyMagneticSelectionOnMouseUp(container) {
   container.addEventListener('mouseup', event => {
+    if (document.querySelector('.custom-select').value == 'view') return;
+
     const selection = window.getSelection();
 
     if (event.target.dataset.notationId) return;

@@ -5,6 +5,7 @@ window.addEventListener('load', function() {
   loadLyricAttributes();
   loadLyricNotations();
   loadPhoneticNotations();
+  initializeViewMode();
   initializeNotationSwitches();
   initializeNotationToolbar();
   LyricNotation.initializeCards();
@@ -51,6 +52,13 @@ const loadPhoneticNotations = () => {
     const phoneticNotation = new PhoneticNotation(notation['id'], notation['lyric_id'], notation['selected_text'], notation['content'], position);
     phoneticNotation.annotate();
   }
+}
+
+const initializeViewMode = () => {
+  const viewModeDropdown = document.getElementById('lyric-view-mode');
+  viewModeDropdown.addEventListener('change', function() {
+    window.getSelection().removeAllRanges();
+  });
 }
 
 const initializeNotationSwitches = () => {
