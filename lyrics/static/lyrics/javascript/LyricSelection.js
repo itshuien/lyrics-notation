@@ -1,7 +1,8 @@
 /* TODO: Handle text selection error */
 function applyMagneticSelectionOnMouseUp(container) {
   container.addEventListener('mouseup', event => {
-    if (document.querySelector('.custom-select').value == 'view') return;
+    const activeViewMode = document.querySelector(`#lyric-view-mode-dropdown .active[data-view-mode]`).dataset.viewMode;
+    if (activeViewMode == 'view') return;
 
     const selection = window.getSelection();
 

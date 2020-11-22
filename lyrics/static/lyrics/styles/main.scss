@@ -35,13 +35,15 @@
   padding: 10px;
   border-radius: .25rem;
   display: flex;
+  justify-content: space-between;
   box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.04);
 
-  button {
+  #lyric-notation-tool,
+  #phonetic-notation-tool,
+  #notation-display-tool > button {
     color: #007bff;
     background-color: #eaf4ff;
     padding: 5px 10px;
-    width: 36px;
 
     &:hover { color: #004fa3; }
     &:focus { box-shadow: none; }
@@ -51,14 +53,42 @@
     }
   }
 
-  select {
+  #lyric-notation-tool,
+  #phonetic-notation-tool {
+    width: 36px;
+  }
+
+  #lyric-view-mode {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     color: #007bff;
     background-color: #eaf4ff;
     border: none;
     width: 150px;
+    height: 100%;
+    text-align: left;
 
-    &:hover { cursor: pointer; }
+    &:hover {
+      color: #004fa3;
+      cursor: pointer;
+    }
   }
+}
+
+#notation-display-tool {
+  &:focus { outline: none; }
+}
+
+#display-notation-dropdown {
+  position: absolute;
+  right: 10px;
+  background: #ffffff;
+  padding: .5rem .8rem;
+  width: 200px;
+  z-index: 1;
+  box-shadow: 0 -5px 15px 0 rgba(0, 0, 0, 0.04);
+  margin-top: .5rem;
 }
 
 .card {

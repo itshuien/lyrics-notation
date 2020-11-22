@@ -56,9 +56,22 @@ const loadPhoneticNotations = () => {
 
 const initializeViewMode = () => {
   const viewModeDropdown = document.getElementById('lyric-view-mode');
-  viewModeDropdown.addEventListener('change', function() {
+  const viewModeButton = document.querySelector('[data-view-mode="view"]');
+  const editModeButton = document.querySelector('[data-view-mode="edit"]');
+
+  viewModeButton.addEventListener('click', function() {
+    viewModeButton.classList.add('active');
+    editModeButton.classList.remove('active');
+    viewModeDropdown.textContent = viewModeButton.textContent;
     window.getSelection().removeAllRanges();
-  });
+  })
+
+  editModeButton.addEventListener('click', function() {
+    viewModeButton.classList.remove('active');
+    editModeButton.classList.add('active');
+    viewModeDropdown.textContent = editModeButton.textContent;
+    window.getSelection().removeAllRanges();
+  })
 }
 
 const initializeNotationSwitches = () => {
@@ -114,6 +127,18 @@ const initializeNotationToolbar = () => {
     const phoneticNotationCard = PhoneticNotation.getCard('');
     phoneticNotationCard.querySelector('.selected-text').textContent = selection.text;
   });
+
+  const notationDisplayTool = document.getElementById('notation-display-tool');
+  const notationDisplayButton = notationDisplayTool.querySelector('button');
+  const notationDisplayDropdown = document.getElementById('display-notation-dropdown');
+  notationDisplayButton.addEventListener('click', function() {
+    notationDisplayDropdown.classList.contains('d-none') ? notationDisplayDropdown.classList.remove('d-none') : notationDisplayDropdown.classList.add('d-none');
+  })
+
+  notationDisplayTool.addEventListener('focusout', function(event) {
+    if (this.contains(event.relatedTarget)) return;
+    notationDisplayDropdown.classList.add('d-none');
+  })
 }
 
 const setLyricNotationForm = selection => {
