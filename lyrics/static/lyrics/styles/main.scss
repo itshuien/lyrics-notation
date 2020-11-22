@@ -133,10 +133,12 @@
 .lyric-notation-card {
   .selected-text {
     white-space: pre;
-    border-left: 10px solid #666666;
+    color: #006ee5;
+    border-left: 2px solid #007bff;
     padding: 15px;
-    background-color: #f5f5f5;
-    border-radius: 10px;
+    margin-bottom: 10px;
+    background-color: #eaf4ff;
+    border-radius: 0 .25rem .25rem 0;
   }
 
   .content {
@@ -145,7 +147,27 @@
   }
 }
 
+.phonetic-notation-card {
+  .selected-text {
+    font-size: 24px;
+  }
+}
+
 .lyric-notation-card,
 .phonetic-notation-card {
   box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.04);
+}
+
+.lyric-notation-form,
+.phonetic-notation-form {
+  display: grid;
+  grid-template-areas:
+    "input input"
+    "action-button cancel-button";
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
+
+  .form-group { grid-area: input; }
+  .btn-primary { grid-area: action-button; }
+  .btn-cancel { grid-area: cancel-button; }
 }

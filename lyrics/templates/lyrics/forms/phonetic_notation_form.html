@@ -1,5 +1,5 @@
 {% if mode == 'create' %}
-  <form class="phonetic-notation-form mt-3" action="{% url 'lyrics:create_phonetic_notation' lyric.id %}" data-form-mode="create" method="post">
+  <form class="phonetic-notation-form mt-1" action="{% url 'lyrics:create_phonetic_notation' lyric.id %}" data-form-mode="create" method="post">
     {% csrf_token %}
 
     <input type="hidden" id="line" name="line">
@@ -7,18 +7,18 @@
 
     <input class="form-control d-none" name="selected_text" readonly required>
 
-    <div class="form-group">
+    <div class="form-group mb-0">
       <input class="form-control" name="content" placeholder="Phonetic notation" required>
     </div>
 
-    <button type="submit" class="btn btn-success">Add</button>
+    <button type="submit" class="btn btn-primary">Add</button>
     <button type="button" class="btn btn-secondary btn-cancel">Cancel</button>
   </form>
 {% else %}
-  <form class="phonetic-notation-form mt-3 d-none" action="{% url 'lyrics:update_phonetic_notation' phonetic_notation.id %}" data-form-mode="edit" method="post">
+  <form class="phonetic-notation-form mt-1 d-none" action="{% url 'lyrics:update_phonetic_notation' phonetic_notation.id %}" data-form-mode="edit" method="post">
     {% csrf_token %}
 
-    <div class="form-group">
+    <div class="form-group mb-0">
       <input name="content" class="form-control" placeholder="Phonetic notation" value="{{ phonetic_notation.content }}" required>
     </div>
 
