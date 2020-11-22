@@ -18,6 +18,27 @@
   src: url('../fonts/Poppins-Regular.ttf') format('truetype');
 }
 
+.title {
+  font-family: 'Poppins-Regular';
+  font-weight: bold;
+}
+
+#lyrics-table-container {
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 1rem;
+
+  table {
+    th {
+      font-family: 'Poppins-Regular';
+      background-color: #f4f7f8;
+    }
+    
+    th, td { padding: 10px 15px; }
+    tr:hover { background-color: #f2f8ff; }
+  }
+}
+
 #lyric-page {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -48,6 +69,7 @@
 #notation-toolbar {
   background: #ffffff;
   padding: 10px;
+  margin-bottom: .75rem;
   border-radius: .25rem;
   display: flex;
   justify-content: space-between;
