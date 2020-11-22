@@ -3,6 +3,21 @@
   src: url('../fonts/sofiapro-light.otf') format("opentype");
 }
 
+@font-face {
+  font-family: 'Poppins-Thin';
+  src: url('../fonts/Poppins-Thin.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Poppins-Light';
+  src: url('../fonts/Poppins-Light.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Poppins-Regular';
+  src: url('../fonts/Poppins-Regular.ttf') format('truetype');
+}
+
 #lyric-page {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
