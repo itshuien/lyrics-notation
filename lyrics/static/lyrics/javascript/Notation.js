@@ -67,4 +67,18 @@ class Notation {
       }
     })
   }
+
+  static hideCardMenuButtons() {
+    const cards = document.querySelectorAll(`.lyric-notation-card, .phonetic-notation-card`);
+    for (let card of cards) {
+      if (card.dataset.notationId) card.querySelector('#cardMenuButton').classList.add('d-none');
+    }
+  }
+
+  static showCardMenuButtons() {
+    const cards = document.querySelectorAll(`.lyric-notation-card, .phonetic-notation-card`);
+    for (let card of cards) {
+      if (card.dataset.notationId) card.querySelector('#cardMenuButton').classList.remove('d-none');
+    }
+  }
 }

@@ -64,6 +64,7 @@ const initializeViewMode = () => {
     editModeButton.classList.remove('active');
     viewModeDropdown.textContent = viewModeButton.textContent;
     window.getSelection().removeAllRanges();
+    Notation.hideCardMenuButtons();
   })
 
   editModeButton.addEventListener('click', function() {
@@ -71,6 +72,7 @@ const initializeViewMode = () => {
     editModeButton.classList.add('active');
     viewModeDropdown.textContent = editModeButton.textContent;
     window.getSelection().removeAllRanges();
+    Notation.showCardMenuButtons();
   })
 }
 
