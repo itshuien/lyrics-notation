@@ -18,8 +18,8 @@ class LyricNotation extends Notation {
 
   highlightPart(startWord, endWord) {
     const range = new Range();
-    range.setStart(startWord.firstChild, 0);
-    range.setEnd(endWord.firstChild, endWord.textContent.length);
+    range.setStart(startWord.previousSibling, 0);
+    range.setEnd(endWord.nextSibling, endWord.textContent.length);
 
     const wrapper = this.buildWrapper();
     if (startWord == endWord) {
