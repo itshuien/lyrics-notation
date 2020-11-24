@@ -156,3 +156,6 @@ LOGGING = {
     },
     "loggers": {"django": {"handlers": ["console"]}},
 }
+
+# Auth
+LOGIN_REDIRECT_URL = '/lyrics'

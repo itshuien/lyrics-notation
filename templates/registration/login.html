@@ -1,0 +1,27 @@
+{% extends "index.html" %}
+
+{% block content %}
+<div class="m-auto p-4 bg-white" style="width: 400px; border-radius: .5rem; box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.02);">
+  <h3 class="title mb-4">Login</h3>
+
+  {% if form.errors %}
+    <div class="alert alert-warning" role="alert">Invalid username or password.</div>
+  {% endif %}
+
+  <form method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+
+    <div class="form-group">
+      <label for="id_username" class="">Username</label>
+      <input class="form-control" id="id_username" name="username" required>
+    </div>
+
+    <div class="form-group">
+      <label for="id_password" class="">Password</label>
+      <input class="form-control" id="id_password" name="password" type="password" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-block">Login</button>
+  </form>
+</div>
+{% endblock %}
