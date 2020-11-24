@@ -19,47 +19,49 @@
 {% endblock %}
 
 {% block content %}
-<div id="lyric-page">
-  <div id="header">
-    <a href="{% url 'lyrics:index' %}">Back to lyrics</a>
-    <h3 class="title mt-3">{{ lyric.title }}</h3>
-  </div>
+  {% include 'navbar.html' %}
 
-  <div id="lyric">
-    {% for line in tokenized_lyric_lines %}
-      <div class="lyric-line" data-line-id="{{ forloop.counter0 }}">
-        {% for word in line %}
-          {% if word|cut:' ' == '' %}
-            <ruby class="lyric-word" data-word-id="{{ forloop.counter0 }}">&nbsp;</ruby>
-          {% else %}
-            <ruby class="lyric-word" data-word-id="{{ forloop.counter0 }}">{{ word }}</ruby>
-          {% endif %}
+  <div id="lyric-page" class="container">
+    <div id="header">
+      <a href="{% url 'lyrics:index' %}">Back to lyrics</a>
+      <h3 class="title mt-3">{{ lyric.title }}</h3>
+    </div>
+
+    <div id="lyric">
+      {% for line in tokenized_lyric_lines %}
+        <div class="lyric-line" data-line-id="{{ forloop.counter0 }}">
+          {% for word in line %}
+            {% if word|cut:' ' == '' %}
+              <ruby class="lyric-word" data-word-id="{{ forloop.counter0 }}">&nbsp;</ruby>
+            {% else %}
+              <ruby class="lyric-word" data-word-id="{{ forloop.counter0 }}">{{ word }}</ruby>
+            {% endif %}
+          {% endfor %}
+          <br>
+        </div>
+      {% endfor %}
+    </div>
+
+    <div id="sidebar">
+      <div class="sticky-top" style="top: 20px;">
+
+        <div class="mb-2">
+          <small class="text-secondary">ARTIST</small>
+          <div class="title">{{ lyric.artist }}</div>
+        </div>
+
+        {% include 'lyrics/notation_toolbar.html' %}
+
+        {% for lyric_notation in lyric.lyricnotation_set.all %}
+          {% include "lyrics/lyric_notation_card.html" %}
         {% endfor %}
-        <br>
-      </div>
-    {% endfor %}
-  </div>
-
-  <div id="sidebar">
-    <div class="sticky-top" style="top: 20px;">
-
-      <div class="mb-2">
-        <small class="text-secondary">ARTIST</small>
-        <div class="title">{{ lyric.artist }}</div>
-      </div>
-
-      {% include 'lyrics/notation_toolbar.html' %}
-
-      {% for lyric_notation in lyric.lyricnotation_set.all %}
         {% include "lyrics/lyric_notation_card.html" %}
-      {% endfor %}
-      {% include "lyrics/lyric_notation_card.html" %}
 
-      {% for phonetic_notation in lyric.phoneticnotation_set.all %}
+        {% for phonetic_notation in lyric.phoneticnotation_set.all %}
+          {% include "lyrics/phonetic_notation_card.html" %}
+        {% endfor %}
         {% include "lyrics/phonetic_notation_card.html" %}
-      {% endfor %}
-      {% include "lyrics/phonetic_notation_card.html" %}
+      </div>
     </div>
   </div>
-</div>
 {% endblock %}

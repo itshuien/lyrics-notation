@@ -1,0 +1,11 @@
+<nav id="navbar" class="navbar navbar-light bg-white">
+  <a class="navbar-brand" href="{% url 'lyrics:index' %}">LyricsPro</a>
+  <div class="navbar-right d-flex align-items-center">
+    {% if user.is_authenticated %}
+      <span class="mr-3">Hi, {{ user.get_username }}</span>
+      <a id="logout-button" class="btn btn-primary" href="{% url 'logout' %}">Logout</a>
+    {% else %}
+      <a id="login-button" class="btn btn-primary" href="{% url 'login' %}">Login</a>
+    {% endif %}
+  </div>
+</nav>

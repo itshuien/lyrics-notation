@@ -18,6 +18,8 @@
   src: url('../fonts/Poppins-Regular.ttf') format('truetype');
 }
 
+@import './navbar.scss';
+
 .title {
   font-family: 'Poppins-Regular';
   font-weight: bold;
@@ -45,7 +47,7 @@
   grid-template-areas: 
     "header header header . ."
     "main main main sidebar sidebar";
-  margin: 50px 0px;
+  margin: 30px auto;
 
   #header {
     grid-area: header;

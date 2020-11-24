@@ -1,26 +1,30 @@
 {% extends "index.html" %}
 
 {% block content %}
-<h3 class="title mb-3">Lyrics</h3>
+  {% include 'navbar.html' %}
 
-<div id="lyrics-table-container">
-  <table id="lyrics-table" style="width: 100%">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Title</th>
-        <th scope="col">Artist</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for lyric in lyrics %}
-        <tr>
-          <td scope="row">{{ lyric.id }}</td>
-          <td><a href="{% url 'lyrics:show' lyric.id %}">{{ lyric.title }}</a></td>
-          <td>{{ lyric.artist }}</td>
-        </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-</div>
+  <div class="container mt-4">
+    <h3 class="title mb-3">Lyrics</h3>
+
+    <div id="lyrics-table-container">
+      <table id="lyrics-table" style="width: 100%">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Title</th>
+            <th scope="col">Artist</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for lyric in lyrics %}
+            <tr>
+              <td scope="row">{{ lyric.id }}</td>
+              <td><a href="{% url 'lyrics:show' lyric.id %}">{{ lyric.title }}</a></td>
+              <td>{{ lyric.artist }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
 {% endblock %}

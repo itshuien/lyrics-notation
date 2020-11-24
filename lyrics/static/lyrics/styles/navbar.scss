@@ -1,0 +1,18 @@
+#navbar {
+  font-family: 'Poppins-Regular';
+
+  .navbar-brand {
+    font-weight: bold;
+  }
+
+  .navbar-right {
+    font-size: 14px;
+  }
+
+  #login-button,
+  #logout-button {
+    font-size: 14px;
+    border-radius: 20px;
+    padding: 5px 20px;
+  }
+}
