@@ -1,6 +1,8 @@
 {% extends "index.html" %}
 
 {% block content %}
-  <p>Logged out!</p>  
-  <a href="{% url 'login'%}">Click here to login again.</a>
+<div id="logged-out-container" class="rounded">
+  <h5 class="title text-center mb-4">You are successfully logged out!</h5>
+  <a href="{% url 'login' %}" class="btn btn-primary btn-block">Click here to login again.</a>
+</div>
 {% endblock %}
