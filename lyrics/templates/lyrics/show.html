@@ -32,9 +32,9 @@
         <div class="lyric-line" data-line-id="{{ forloop.counter0 }}">
           {% for word in line %}
             {% if word|cut:' ' == '' %}
-              <ruby class="lyric-word" data-word-id="{{ forloop.counter0 }}">&nbsp;</ruby>
+              <ruby class="lyric-word" data-word-id="{{ forloop.counter0 }}"><rb>&nbsp;</rb></ruby>
             {% else %}
-              <ruby class="lyric-word" data-word-id="{{ forloop.counter0 }}">{{ word }}</ruby>
+              <ruby class="lyric-word" data-word-id="{{ forloop.counter0 }}"><rb>{{ word }}</rb></ruby>
             {% endif %}
           {% endfor %}
           <br>
