@@ -3,7 +3,7 @@ class LyricNotation extends Notation {
     super(id, lyricId, selectedText, content, position);
   }
 
-  static notationType = 'lyric';
+  static get notationType() { return 'lyric' };
 
   highlight() {
     const { startLine, endLine } = this.position;

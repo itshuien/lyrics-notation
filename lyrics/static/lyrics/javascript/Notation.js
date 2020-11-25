@@ -7,7 +7,7 @@ class Notation {
     this.content = content;
   }
 
-  static notationType = '';
+  static get notationType() { return '' };
 
   static getCard(id) {
     return document.querySelector(`.${this.notationType}-notation-card[data-notation-id="${id}"]`);

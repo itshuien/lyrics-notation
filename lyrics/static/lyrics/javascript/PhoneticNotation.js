@@ -3,7 +3,7 @@ class PhoneticNotation extends Notation {
     super(id, lyricId, selectedText, content, position);
   }
 
-  static notationType = 'phonetic';
+  static get notationType() { return 'phonetic' };
   
   annotate() {
     const wordElement = this.getWordElement();
