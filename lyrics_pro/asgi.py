@@ -1,5 +1,5 @@
 """
-ASGI config for lyrics_notation project.
+ASGI config for lyrics_pro project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.asgi import get_asgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'lyrics_notation.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'lyrics_pro.settings')
 
 application = get_asgi_application()
