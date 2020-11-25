@@ -1,18 +1,21 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 
 from .models import Lyric, LyricNotation, PhoneticNotation
 from .utils import words_tokenizer
 
 import json
 
+@login_required(login_url='/accounts/login/')
 def index(request):
     context = {
-        'lyrics': Lyric.objects.all
+        'lyrics': Lyric.objects.all().order_by('id')
     }
     return render(request, 'lyrics/index.html', context)
 
+@login_required(login_url='/accounts/login/')
 def show(request, pk):
     lyric = Lyric.objects.get(pk=pk)
     lyric_notations = lyric.lyricnotation_set.all()
