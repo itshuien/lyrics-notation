@@ -57,10 +57,10 @@ function getSelectionNodes() {
   let { anchorNode, focusNode, anchorOffset, focusOffset } = window.getSelection();
 
   if (anchorNode.classList?.contains('lyric-line')) anchorNode = getLastWordInLine(anchorNode);
-  else if (anchorNode.tagName === 'RB' || anchorNode.nodeType === Node.TEXT_NODE) anchorNode = anchorNode.parentNode.closest('ruby');
+  else if (['RT', 'RB'].includes(anchorNode.tagName) || anchorNode.nodeType === Node.TEXT_NODE) anchorNode = anchorNode.parentNode.closest('ruby');
 
   if (focusNode.classList?.contains('lyric-line')) focusNode = getLastWordInLine(focusNode);
-  else if (focusNode.tagName === 'RB' || focusNode.nodeType === Node.TEXT_NODE) focusNode = focusNode.parentNode.closest('ruby');
+  else if (['RT', 'RB'].includes(focusNode.tagName) || focusNode.nodeType === Node.TEXT_NODE) focusNode = focusNode.parentNode.closest('ruby');
 
   if (isSelectionReversed(anchorNode, focusNode, anchorOffset, focusOffset)) {
     [anchorNode, focusNode] = [focusNode, anchorNode];
