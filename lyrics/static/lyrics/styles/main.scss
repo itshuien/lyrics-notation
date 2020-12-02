@@ -152,7 +152,8 @@
     cursor: pointer;
   }
 
-  rt {
+  .phonetic-notation {
+    display: block;
     font-size: 12px;
     &:before { content: attr(data-rt); }
     &.phonetic-notation-hidden { display: none; }

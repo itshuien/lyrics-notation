@@ -20,6 +20,7 @@ class PhoneticNotation extends Notation {
 
   buildRubyAnnotation() {
     const rubyText = document.createElement('rt');
+    rubyText.classList.add('phonetic-notation')
     rubyText.setAttribute('data-rt', this.content);
     return rubyText;
   }
