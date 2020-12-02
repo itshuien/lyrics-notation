@@ -21,6 +21,7 @@
 
     .feature-component {
       display: flex;
+      align-items: center;
       padding: 8px;
       background-color: #eaf4ff;
       border-radius: 16px;
@@ -29,8 +30,8 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 60px;
-        width: 60px;
+        min-height: 60px;
+        min-width: 60px;
         border-radius: 16px;
         font-size: 20px;
         color: #ffffff;
