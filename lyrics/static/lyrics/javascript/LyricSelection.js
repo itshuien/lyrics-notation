@@ -23,7 +23,7 @@ function handleSelection() {
   const phoneticNotationButton = document.getElementById('phonetic-notation-tool');
 
   const isOnlyOneWordSelected = window.getSelection().anchorNode == window.getSelection().focusNode;
-  const wordHasPhoneticNotation = window.getSelection().anchorNode.parentNode?.querySelector('rt');
+  const wordHasPhoneticNotation = window.getSelection().anchorNode.parentNode.closest('ruby').querySelector('.phonetic-notation');
   phoneticNotationButton.disabled = isOnlyOneWordSelected ? wordHasPhoneticNotation : true;
 
   if (isOverlappingWithExistingLyricNotations()) {
