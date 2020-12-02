@@ -153,10 +153,9 @@
   }
 
   .phonetic-notation {
-    display: block;
     font-size: 12px;
     &:before { content: attr(data-rt); }
-    &.phonetic-notation-hidden { display: none; }
+    &.phonetic-notation-hidden:before { display: none; }
   }
 }
 
