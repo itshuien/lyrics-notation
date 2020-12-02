@@ -29,7 +29,7 @@
 
     <div id="lyric">
       {% for line in tokenized_lyric_lines %}
-        <div class="lyric-line" data-line-id="{{ forloop.counter0 }}">
+        <div class="lyric-line {% if not line %}empty{% endif %}" data-line-id="{{ forloop.counter0 }}">
           {% for word in line %}
             {% if word|cut:' ' == '' %}
               <ruby class="lyric-word" data-word-id="{{ forloop.counter0 }}"><rb>&nbsp;</rb></ruby>

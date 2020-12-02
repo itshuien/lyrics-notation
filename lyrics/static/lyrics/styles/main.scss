@@ -139,6 +139,8 @@
 .lyric-line {
   display: flex;
   line-height: 2.5;
+
+  &.empty { height: 45px; }
 }
 
 .lyric-word {
