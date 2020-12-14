@@ -1,10 +1,15 @@
 from django.db import models
 from django.contrib.postgres.fields import ArrayField
+from django.contrib.auth.models import User
 
 class Lyric(models.Model):
     title = models.CharField(max_length=200)
     artist = models.CharField(max_length=200, blank=True, null=True)
     lines = ArrayField(models.TextField())
+    user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 class LyricNotation(models.Model):
     lyric           = models.ForeignKey(Lyric, on_delete=models.CASCADE)
