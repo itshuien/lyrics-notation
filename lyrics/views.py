@@ -19,6 +19,10 @@ def index(request):
 @login_required(login_url='/accounts/login/')
 def show(request, pk):
     lyric = Lyric.objects.get(pk=pk)
+
+    if not request.user.is_superuser and request.user != lyric.user:
+        return HttpResponseRedirect(reverse('lyrics:index'))
+
     lyric_notations = lyric.lyricnotation_set.all()
     phonetic_notations = lyric.phoneticnotation_set.all()
 
