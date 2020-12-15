@@ -175,7 +175,7 @@
 
 .lyric-notation-card {
   .selected-text {
-    white-space: pre;
+    white-space: pre-wrap;
     color: #006ee5;
     border-left: 2px solid #007bff;
     padding: 15px;
@@ -185,7 +185,7 @@
   }
 
   .content {
-    white-space: pre;
+    white-space: pre-wrap;
     margin-top: 15px;
   }
 }
