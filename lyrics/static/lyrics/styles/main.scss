@@ -1,9 +1,4 @@
 @font-face {
-  font-family: 'SofiaPro-Light';
-  src: url('../fonts/sofiapro-light.otf') format("opentype");
-}
-
-@font-face {
   font-family: 'Poppins-Thin';
   src: url('../fonts/Poppins-Thin.ttf') format('truetype');
 }
@@ -145,7 +140,6 @@
 
 .lyric-word {
   display: inline-block;
-  // font-family: 'SofiaPro-Light';
 
   &.lyric-word-focus {
     color: #007bff;
