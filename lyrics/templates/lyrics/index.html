@@ -13,6 +13,10 @@
             <th scope="col">#</th>
             <th scope="col">Title</th>
             <th scope="col">Artist</th>
+            <th scope="col">Updated At</th>
+            {% if user.is_superuser %}
+              <th scope="col">User</th>
+            {% endif %}
           </tr>
         </thead>
         <tbody>
@@ -21,6 +25,10 @@
               <td scope="row">{{ lyric.id }}</td>
               <td><a href="{% url 'lyrics:show' lyric.id %}">{{ lyric.title }}</a></td>
               <td>{{ lyric.artist }}</td>
+              <td>{{ lyric.updated_at }}</td>
+              {% if user.is_superuser %}
+                <td>{{ lyric.user }}</td>
+              {% endif %}
             </tr>
           {% endfor %}
         </tbody>

@@ -10,9 +10,10 @@ import json
 
 @login_required(login_url='/accounts/login/')
 def index(request):
-    context = {
-        'lyrics': Lyric.objects.all().order_by('id')
-    }
+    lyrics = Lyric.objects.all().order_by('id') if request.user.is_superuser else Lyric.objects.filter(user=request.user.id)
+
+    context = { 'lyrics': lyrics }
+
     return render(request, 'lyrics/index.html', context)
 
 @login_required(login_url='/accounts/login/')
