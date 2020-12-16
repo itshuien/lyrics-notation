@@ -78,3 +78,48 @@ class LyricIndexViewTests(TestCase):
         response = self.client.get(reverse('lyrics:index'))
 
         self.assertQuerysetEqual(response.context['lyrics'], expected_result, ordered=False)
+
+class LyricShowViewTests(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.normal_user = UserFactory(username='normal_user')
+        cls.superuser = UserFactory(username='superuser', is_superuser=True)
+
+    def test_redirect_if_unauthenticated(self):
+        lyric = LyricFactory(user=self.normal_user)
+
+        response = self.client.get(reverse('lyrics:show', args=(lyric.id,)))
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, f'/accounts/login/?next=/lyrics/{lyric.id}/')
+
+    def test_normal_user_can_view_own_lyric(self):
+        self.client.force_login(self.normal_user)
+        lyric = LyricFactory(user=self.normal_user)
+
+        response = self.client.get(reverse('lyrics:show', args=(lyric.id,)))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, text=lyric.title)
+
+    def test_normal_user_cannot_view_lyric_belonged_to_another_user(self):
+        self.client.force_login(self.normal_user)
+        lyric = LyricFactory(user=self.superuser)
+
+        response = self.client.get(reverse('lyrics:show', args=(lyric.id,)))
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse('lyrics:index'))
+
+    def test_superuser_can_view_own_lyric(self):
+        self.client.force_login(self.superuser)
+        lyric = LyricFactory(user=self.superuser)
+
+        response = self.client.get(reverse('lyrics:show', args=(lyric.id,)))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, text=lyric.title)
+
+    def test_superuser_can_view_lyric_belonged_to_another_user(self):
+        self.client.force_login(self.superuser)
+        lyric = LyricFactory(user=self.normal_user)
+
+        response = self.client.get(reverse('lyrics:show', args=(lyric.id,)))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, text=lyric.title)
