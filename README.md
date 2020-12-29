@@ -2,6 +2,7 @@
 Manage your song lyrics, add notations, and learn efficiently.
 
 ![login screenshot](static/screenshot-login.png)
+
 ![lyric show screenshot](static/screenshot-lyric-show.png)
 
 ## Getting started
