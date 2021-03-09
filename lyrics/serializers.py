@@ -13,3 +13,27 @@ class LyricSerializer(serializers.ModelSerializer):
             'created_at',
             'updated_at',
         ]
+
+class LyricNotationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = LyricNotation
+        fields = [
+            'lyric',
+            'selected_text',
+            'content',
+            'start_line',
+            'start_offset',
+            'end_line',
+            'end_offset',
+        ]
+
+class PhoneticNotationnSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PhoneticNotation
+        fields = [
+            'lyric',
+            'selected_text',
+            'content',
+            'line',
+            'offset',
+        ]
