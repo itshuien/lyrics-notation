@@ -1,12 +1,13 @@
 from django.urls import path
 
-from . import api_views
+from . import api_views_old
+from .api_views import LyricViewSet
 
 app_name = 'lyrics'
 
 urlpatterns = [
-    path('lyrics/', api_views.lyrics),
-    path('lyrics/<int:pk>/', api_views.lyric),
-    path('lyrics/<int:lyric_id>/lyric_notations/', api_views.lyric_notations),
-    path('lyrics/<int:lyric_id>/phonetic_notations/', api_views.phonetic_notations),
+    path('lyrics/', LyricViewSet.as_view({'get': 'list'})),
+    path('lyrics/<int:pk>/', LyricViewSet.as_view({'get': 'retrieve'})),
+    path('lyrics/<int:lyric_id>/lyric_notations/', api_views_old.lyric_notations),
+    path('lyrics/<int:lyric_id>/phonetic_notations/', api_views_old.phonetic_notations),
 ]
