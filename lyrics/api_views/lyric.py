@@ -1,11 +1,13 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, status
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
 
 from ..models import Lyric
 from ..serializers import LyricSerializer
 
 class LyricViewSet(viewsets.ViewSet):
+    permission_classes = [IsAuthenticated]
+
     def list(self, request):
         lyrics = (
             Lyric.objects.all().order_by('id') if request.user.is_superuser

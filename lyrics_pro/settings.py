@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'lyrics.apps.LyricsConfig',
     'compressor',
     'rest_framework',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
@@ -185,5 +186,9 @@ LOGIN_REDIRECT_URL = '/lyrics'
 
 # Django Rest Framework
 REST_FRAMEWORK = {
-    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning'
+    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning',
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ]
 }

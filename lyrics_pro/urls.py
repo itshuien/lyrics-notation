@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic.base import TemplateView
+from rest_framework.authtoken import views
 
 urlpatterns = [
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
@@ -25,5 +26,6 @@ urlpatterns = [
 
     # api
     path('api-auth/', include('rest_framework.urls')),
+    path('api-auth-token/', views.obtain_auth_token),
     path('api/v1/', include('lyrics.api_urls', namespace='v1'))
 ]

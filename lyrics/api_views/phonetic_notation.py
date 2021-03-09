@@ -1,6 +1,6 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, status
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
 
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -8,6 +8,8 @@ from ..models import Lyric, PhoneticNotation
 from ..serializers import PhoneticNotationnSerializer
 
 class PhoneticNotationViewSet(viewsets.ViewSet):
+    permission_classes = [IsAuthenticated]
+
     def list(self, request, lyric_id):
         try:
             lyric = Lyric.objects.get(pk=lyric_id)
