@@ -5,35 +5,14 @@ from .models import Lyric, LyricNotation, PhoneticNotation
 class LyricSerializer(serializers.ModelSerializer):
     class Meta:
         model = Lyric
-        fields = [
-            'title',
-            'artist',
-            'lines',
-            'user',
-            'created_at',
-            'updated_at',
-        ]
+        fields = '__all__'
 
 class LyricNotationSerializer(serializers.ModelSerializer):
     class Meta:
         model = LyricNotation
-        fields = [
-            'lyric',
-            'selected_text',
-            'content',
-            'start_line',
-            'start_offset',
-            'end_line',
-            'end_offset',
-        ]
+        fields = '__all__'
 
 class PhoneticNotationSerializer(serializers.ModelSerializer):
     class Meta:
         model = PhoneticNotation
-        fields = [
-            'lyric',
-            'selected_text',
-            'content',
-            'line',
-            'offset',
-        ]
+        fields = '__all__'
