@@ -5,7 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 from django.core.exceptions import ObjectDoesNotExist
 
 from ..models import Lyric, PhoneticNotation
-from ..serializers import PhoneticNotationnSerializer
+from ..serializers import PhoneticNotationSerializer
 
 class PhoneticNotationViewSet(viewsets.ViewSet):
     permission_classes = [IsAuthenticated]
@@ -18,7 +18,7 @@ class PhoneticNotationViewSet(viewsets.ViewSet):
                 return Response(status=status.HTTP_403_FORBIDDEN)
 
             phonetic_notations = lyric.phoneticnotation_set.all()
-            serializer = PhoneticNotationnSerializer(phonetic_notations, many=True)
+            serializer = PhoneticNotationSerializer(phonetic_notations, many=True)
             
             return Response(serializer.data)
 

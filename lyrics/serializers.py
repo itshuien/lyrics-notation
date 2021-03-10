@@ -27,7 +27,7 @@ class LyricNotationSerializer(serializers.ModelSerializer):
             'end_offset',
         ]
 
-class PhoneticNotationnSerializer(serializers.ModelSerializer):
+class PhoneticNotationSerializer(serializers.ModelSerializer):
     class Meta:
         model = PhoneticNotation
         fields = [
