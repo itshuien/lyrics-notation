@@ -37,3 +37,27 @@ class LyricNotationViewSet(viewsets.ViewSet):
             return Response(data=e.detail, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
         except Exception:
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    def retrieve(self, request, pk):
+        try:
+            lyric_notation = LyricNotation.objects.get(pk=pk)
+            serializer = LyricNotationSerializer(lyric_notation)
+
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except ObjectDoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            print(e)
+            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    def destroy(self, request, pk):
+        try:
+            lyric_notation = LyricNotation.objects.get(pk=pk)
+            lyric_notation.delete()
+
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        except ObjectDoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            print(e)
+            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
